@@ -130,9 +130,10 @@
   border-color: var(--component-form-outline-selected);
 }
 
+/* Selected cards do not respond to hover — no elevation, no scale. */
 .radio-card.is-selected:hover:not(.is-disabled) {
-  box-shadow: var(--semantic-shadow-elevation-hover);
-  transform: scale(1.01);
+  box-shadow: none;
+  transform: none;
 }
 
 /* Focus ring — accessibility */
