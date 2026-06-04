@@ -115,15 +115,18 @@
   z-index: 1; /* keeps the lifted card above its neighbours */
 }
 
-/* Pressed — Figma "Pressed" column */
+/* Pressed — Figma "Pressed" column.
+ * No elevation shadow on press; card fill drops to `variant-subtle`. */
 .radio-card:active:not(.is-disabled) {
-  box-shadow: var(--semantic-shadow-elevation-low);
+  box-shadow: none;
   transform: scale(0.995);
+  background-color: var(--semantic-color-surface-variant-subtle);
 }
 
-/* Selected — Figma "Selected" column */
+/* Selected — Figma "Selected" column.
+ * Per brief: keep the default surface fill, only the blue selected outline. */
 .radio-card.is-selected {
-  background-color: var(--component-form-default-selected);
+  background-color: var(--semantic-color-surface-default);
   border-color: var(--component-form-outline-selected);
 }
 

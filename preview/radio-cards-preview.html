@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Radio Cards — Live Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root { color-scheme: light; }
+
+    /* ===== Atlas / Lens design tokens (subset used by RadioCard) ===== */
+    :root {
+      --spacing-0: 0px;
+      --spacing-0-25: 2px;
+      --spacing-0-5: 4px;
+      --spacing-1: 8px;
+      --spacing-2: 16px;
+      --spacing-3: 24px;
+
+      --semantic-spacing-desktop-padding-0: 0px;
+      --semantic-spacing-desktop-padding-1: 4px;
+      --semantic-spacing-desktop-padding-2: 12px;
+      --semantic-spacing-desktop-padding-3: 20px;
+      --semantic-spacing-desktop-gap-1-5: 8px;
+      --semantic-spacing-desktop-gap-3: 16px;
+
+      --component-card-padding-vertical: 16px;
+
+      --semantic-radius-lg: 12px;
+      --semantic-radius-lg-16: 16px;
+      --semantic-radius-full: 9999px;
+
+      --semantic-color-surface-default: #ffffff;
+      --semantic-color-surface-variant: #eeeff5;
+      --semantic-color-surface-variant-subtle: #f9f9fc;
+
+      --semantic-color-type-default: #232429;
+      --semantic-color-type-muted: #575a67;
+
+      --semantic-color-outline-static: #e2e2e5;
+      --semantic-color-shadow-default: rgba(15, 17, 19, 0.10);
+
+      --component-form-outline: #6e7182;
+      --component-form-hover: #dee0e9;
+      --component-form-active: #c3c4cc;
+      --component-form-indicator: #0040d5;
+      --component-form-default-selected: #efefff;
+      --component-form-outline-selected: #0040d5;
+
+      --semantic-typography-title-h6-xs-font: 'Inter', system-ui, sans-serif;
+      --semantic-typography-text-md-font: 'Inter', system-ui, sans-serif;
+
+      --semantic-shadow-elevation-low:
+        0 8px 16px 0 var(--semantic-color-shadow-default),
+        0 0 2px 0 var(--semantic-color-shadow-default);
+      --semantic-shadow-elevation-hover:
+        0 12px 24px 0 rgba(15, 17, 19, 0.12),
+        0 2px 4px 0 rgba(15, 17, 19, 0.08);
+
+      --motion-duration-fast: 150ms;
+      --motion-duration-base: 200ms;
+      --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* ===== Page ===== */
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: var(--semantic-color-type-default);
+      font-family: var(--semantic-typography-text-md-font);
+    }
+    .page {
+      padding: 24px 24px 64px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .page__title {
+      font-family: var(--semantic-typography-title-h6-xs-font);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      margin: 0 0 6px;
+    }
+    .page__subtitle {
+      color: var(--semantic-color-type-muted);
+      font-size: 13px;
+      line-height: 18px;
+      margin: 0 0 28px;
+    }
+    .section { margin-bottom: 32px; }
+    .section__label {
+      font-family: var(--semantic-typography-title-h6-xs-font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      color: var(--semantic-color-type-muted);
+      margin: 0 0 10px;
+    }
+
+    /* ===== Radio Card Group ===== */
+    .radio-card-group {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-0-5);
+      border: 1px solid var(--semantic-color-outline-static);
+      border-radius: var(--semantic-radius-lg-16);
+      background-color: var(--semantic-color-surface-default);
+      padding: var(--semantic-spacing-desktop-padding-2);
+      width: 100%;
+    }
+    .radio-card-group--variant {
+      background-color: var(--semantic-color-surface-variant);
+      border-color: transparent;
+    }
+    .radio-card-group--variant-subtle {
+      background-color: var(--semantic-color-surface-variant-subtle);
+    }
+    .radio-card-group__title {
+      padding: var(--spacing-0-25) 0 var(--spacing-0-5) var(--spacing-0-5);
+      font-family: var(--semantic-typography-title-h6-xs-font);
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.3px;
+      color: var(--semantic-color-type-muted);
+      margin: 0;
+    }
+    .radio-card-group__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--semantic-spacing-desktop-gap-3);
+    }
+
+    /* ===== Radio Card ===== */
+    .radio-card {
+      display: flex;
+      align-items: center;
+      gap: var(--semantic-spacing-desktop-gap-3);
+      padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
+      background-color: var(--semantic-color-surface-default);
+      border: 1px solid var(--semantic-color-outline-static);
+      border-radius: var(--semantic-radius-lg);
+      cursor: pointer;
+      user-select: none;
+      font: inherit;
+      text-align: left;
+      appearance: none;
+      outline: none;
+      position: relative;
+      transition:
+        box-shadow var(--motion-duration-base) var(--motion-easing-standard),
+        transform   var(--motion-duration-base) var(--motion-easing-standard),
+        border-color var(--motion-duration-fast) var(--motion-easing-standard),
+        background-color var(--motion-duration-fast) var(--motion-easing-standard);
+    }
+    .radio-card:hover:not(.is-disabled) {
+      box-shadow: var(--semantic-shadow-elevation-hover);
+      transform: scale(1.01);
+      z-index: 1;
+    }
+    .radio-card:active:not(.is-disabled) {
+      box-shadow: none;
+      transform: scale(0.995);
+      background-color: var(--semantic-color-surface-variant-subtle);
+    }
+    .radio-card.is-selected {
+      background-color: var(--semantic-color-surface-default);
+      border-color: var(--component-form-outline-selected);
+    }
+    .radio-card.is-selected:hover:not(.is-disabled) {
+      box-shadow: var(--semantic-shadow-elevation-hover);
+      transform: scale(1.01);
+    }
+    .radio-card:focus-visible {
+      outline: 2px solid var(--component-form-indicator);
+      outline-offset: 2px;
+    }
+    .radio-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+
+    .radio-card__indicator {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      border-radius: var(--semantic-radius-full);
+      border: 1.5px solid var(--component-form-outline);
+      background-color: transparent;
+      position: relative;
+      transition:
+        background-color var(--motion-duration-fast) var(--motion-easing-standard),
+        border-color var(--motion-duration-fast) var(--motion-easing-standard);
+    }
+    .radio-card:hover:not(.is-disabled) .radio-card__indicator { background-color: var(--component-form-hover); }
+    .radio-card:active:not(.is-disabled) .radio-card__indicator { background-color: var(--component-form-active); }
+    .radio-card.is-selected .radio-card__indicator { border-color: var(--component-form-indicator); background-color: transparent; }
+    .radio-card.is-selected .radio-card__indicator::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: var(--semantic-radius-full);
+      background-color: var(--component-form-indicator);
+    }
+    .radio-card.is-selected:hover:not(.is-disabled) .radio-card__indicator { background-color: transparent; }
+
+    .radio-card__label {
+      font-family: var(--semantic-typography-text-md-font);
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.3px;
+      color: var(--semantic-color-type-default);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .radio-card { transition: none; }
+      .radio-card:hover:not(.is-disabled),
+      .radio-card:active:not(.is-disabled),
+      .radio-card.is-selected:hover:not(.is-disabled) { transform: none; }
+    }
+
+    .note {
+      margin-top: 32px;
+      padding: 12px 14px;
+      border-left: 3px solid var(--component-form-indicator);
+      background: #f5f6ff;
+      color: var(--semantic-color-type-default);
+      font-size: 12.5px;
+      line-height: 18px;
+      border-radius: 4px;
+    }
+    .note code {
+      background: #fff;
+      border: 1px solid var(--semantic-color-outline-static);
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <h1 class="page__title">Radio Cards · Live preview</h1>
+    <p class="page__subtitle">
+      Same CSS / tokens / state matrix that the React and Angular apps ship with.
+      Hover, click, keyboard-navigate — the elevation + scale lift is on every card.
+    </p>
+
+    <section class="section">
+      <p class="section__label">Variant 1 — default surface</p>
+      <div id="g1"></div>
+    </section>
+    <section class="section">
+      <p class="section__label">Variant 2 — variant surface</p>
+      <div id="g2"></div>
+    </section>
+    <section class="section">
+      <p class="section__label">Variant 3 — variant-subtle surface</p>
+      <div id="g3"></div>
+    </section>
+
+    <div class="note">
+      This embedded preview uses the exact CSS in <code>tokens/radio-card.css</code>.
+      To run the real React app: <code>cd react && npm install && npm run dev</code> → <code>http://127.0.0.1:5173</code>.
+      Angular: <code>cd angular && npm install && npm start</code> → <code>http://127.0.0.1:4200</code>.
+    </div>
+  </main>
+
+  <script>
+    const OPTIONS = [
+      { value: 'none', label: 'None' },
+      { value: 'professional', label: 'Professional' },
+      { value: 'contributor', label: 'Contributor' },
+      { value: 'oversight', label: 'Oversight' },
+    ];
+
+    function renderGroup(mountId, { title, variant, initialValue }) {
+      const mount = document.getElementById(mountId);
+      let value = initialValue;
+
+      const group = document.createElement('div');
+      group.className = 'radio-card-group';
+      if (variant === 'variant') group.classList.add('radio-card-group--variant');
+      if (variant === 'variant-subtle') group.classList.add('radio-card-group--variant-subtle');
+      group.setAttribute('role', 'radiogroup');
+      group.setAttribute('aria-label', title);
+
+      const heading = document.createElement('p');
+      heading.className = 'radio-card-group__title';
+      heading.textContent = title;
+      group.appendChild(heading);
+
+      const grid = document.createElement('div');
+      grid.className = 'radio-card-group__grid';
+
+      const cards = OPTIONS.map((opt, idx) => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'radio-card';
+        card.setAttribute('role', 'radio');
+        card.dataset.value = opt.value;
+        card.tabIndex = (value === opt.value || (value === null && idx === 0)) ? 0 : -1;
+
+        const ind = document.createElement('span');
+        ind.className = 'radio-card__indicator';
+        ind.setAttribute('aria-hidden', 'true');
+        card.appendChild(ind);
+
+        const lbl = document.createElement('span');
+        lbl.className = 'radio-card__label';
+        lbl.textContent = opt.label;
+        card.appendChild(lbl);
+
+        card.addEventListener('click', () => {
+          select(opt.value);
+        });
+        return card;
+      });
+
+      cards.forEach((c) => grid.appendChild(c));
+      group.appendChild(grid);
+
+      function refresh() {
+        cards.forEach((card) => {
+          const isSelected = card.dataset.value === value;
+          card.classList.toggle('is-selected', isSelected);
+          card.setAttribute('aria-checked', String(isSelected));
+          card.tabIndex = isSelected ? 0 : -1;
+        });
+        if (!cards.some((c) => c.dataset.value === value)) {
+          cards[0].tabIndex = 0;
+        }
+      }
+      function select(v) { value = v; refresh(); }
+      refresh();
+
+      group.addEventListener('keydown', (e) => {
+        const target = e.target;
+        if (!(target instanceof HTMLElement) || !target.classList.contains('radio-card')) return;
+        const idx = cards.indexOf(target);
+        if (idx === -1) return;
+        let next = -1;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (idx + 1) % cards.length;
+        if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = (idx - 1 + cards.length) % cards.length;
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          select(target.dataset.value);
+          return;
+        }
+        if (next >= 0) {
+          e.preventDefault();
+          cards[next].focus();
+          select(cards[next].dataset.value);
+        }
+      });
+
+      mount.appendChild(group);
+    }
+
+    renderGroup('g1', { title: 'Subscription', variant: 'default',        initialValue: 'none' });
+    renderGroup('g2', { title: 'Subscription', variant: 'variant',        initialValue: 'professional' });
+    renderGroup('g3', { title: 'Subscription', variant: 'variant-subtle', initialValue: null });
+  </script>
+</body>
+</html>
