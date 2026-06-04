@@ -1,0 +1,216 @@
+/**
+ * RadioCard component styles
+ *
+ * Three variants follow Figma node 1:693:
+ *   - default          → container surface = default,  background of the section = white
+ *   - variant          → container surface = variant   (#eeeff5)
+ *   - variant-subtle   → container surface = variant-subtle (#f9f9fc)
+ *
+ * States (CSS classes / pseudo-classes):
+ *   - default          (resting)
+ *   - hover            → :hover  + product brief: elevation + 1.01 scale
+ *   - pressed          → :active
+ *   - selected         → .is-selected (or [aria-checked="true"])
+ *   - selected+hover   → both
+ *   - focus-visible    → keyboard focus ring (uses indicator colour)
+ */
+
+/* =========================================================================
+ * Card group container
+ * ========================================================================= */
+.radio-card-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-0-5);
+  padding: 0;
+  border: 1px solid var(--semantic-color-outline-static);
+  border-radius: var(--semantic-radius-lg-16);
+  background-color: var(--semantic-color-surface-default);
+  padding: var(--semantic-spacing-desktop-padding-2);
+  width: 642px;
+  box-sizing: border-box;
+}
+
+.radio-card-group--variant {
+  background-color: var(--semantic-color-surface-variant);
+  border-color: transparent;
+}
+
+.radio-card-group--variant-subtle {
+  background-color: var(--semantic-color-surface-variant-subtle);
+}
+
+/* Section title row */
+.radio-card-group__title {
+  display: flex;
+  align-items: center;
+  padding-top: var(--spacing-0-25);
+  padding-right: var(--spacing-0);
+  padding-bottom: var(--spacing-0-5);
+  padding-left: var(--spacing-0-5);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--semantic-typography-title-h6-xs-font);
+  font-weight: var(--semantic-typography-title-h6-xs-emphasis);
+  font-size: var(--semantic-typography-title-h6-xs-size);
+  line-height: var(--semantic-typography-title-h6-xs-line-height);
+  letter-spacing: var(--semantic-typography-title-h6-xs-letter-spacing);
+  color: var(--semantic-color-type-muted);
+  margin: 0;
+}
+
+/* 2-column grid of cards */
+.radio-card-group__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--semantic-spacing-desktop-gap-3);
+  width: 100%;
+}
+
+/* =========================================================================
+ * Single RadioCard
+ * ========================================================================= */
+.radio-card {
+  /* layout */
+  display: flex;
+  align-items: center;
+  gap: var(--semantic-spacing-desktop-gap-3);
+  padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
+  width: 100%;
+  box-sizing: border-box;
+
+  /* surface */
+  background-color: var(--semantic-color-surface-default);
+  border: 1px solid var(--semantic-color-outline-static);
+  border-radius: var(--semantic-radius-lg);
+
+  /* interactivity */
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  text-align: left;
+  font-family: var(--semantic-typography-text-md-font);
+
+  /* motion — applied to: shadow, transform, border, background */
+  transition:
+    box-shadow var(--motion-duration-base) var(--motion-easing-standard),
+    transform var(--motion-duration-base) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    background-color var(--motion-duration-fast) var(--motion-easing-standard);
+
+  /* reset for <button> consumers */
+  font: inherit;
+  color: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+/* Hover — Figma only changes the radio-indicator's inner ring fill; the brief
+ * adds an elevation lift + subtle scale on the card surface itself. */
+.radio-card:hover:not(.is-disabled) {
+  box-shadow: var(--semantic-shadow-elevation-hover);
+  transform: scale(1.01);
+  z-index: 1; /* keeps the lifted card above its neighbours */
+}
+
+/* Pressed — Figma "Pressed" column */
+.radio-card:active:not(.is-disabled) {
+  box-shadow: var(--semantic-shadow-elevation-low);
+  transform: scale(0.995);
+}
+
+/* Selected — Figma "Selected" column */
+.radio-card.is-selected {
+  background-color: var(--component-form-default-selected);
+  border-color: var(--component-form-outline-selected);
+}
+
+.radio-card.is-selected:hover:not(.is-disabled) {
+  box-shadow: var(--semantic-shadow-elevation-hover);
+  transform: scale(1.01);
+}
+
+/* Focus ring — accessibility */
+.radio-card:focus-visible {
+  outline: 2px solid var(--component-form-indicator);
+  outline-offset: 2px;
+}
+
+/* Disabled */
+.radio-card.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* =========================================================================
+ * Radio indicator (the circle)
+ * ========================================================================= */
+.radio-card__indicator {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--semantic-radius-full);
+  border: 1.5px solid var(--component-form-outline);
+  background-color: transparent;
+  position: relative;
+  box-sizing: border-box;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+/* hover fill on the indicator (Figma "Hover" column) */
+.radio-card:hover:not(.is-disabled) .radio-card__indicator {
+  background-color: var(--component-form-hover);
+}
+
+/* pressed darker fill (Figma "Pressed" column) */
+.radio-card:active:not(.is-disabled) .radio-card__indicator {
+  background-color: var(--component-form-active);
+}
+
+/* selected — blue ring with inner dot */
+.radio-card.is-selected .radio-card__indicator {
+  border-color: var(--component-form-indicator);
+  background-color: transparent;
+}
+
+.radio-card.is-selected .radio-card__indicator::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: var(--semantic-radius-full);
+  background-color: var(--component-form-indicator);
+}
+
+/* selected+hover keeps the blue dot; suppress the gray hover fill */
+.radio-card.is-selected:hover:not(.is-disabled) .radio-card__indicator {
+  background-color: transparent;
+}
+
+/* =========================================================================
+ * Label
+ * ========================================================================= */
+.radio-card__label {
+  font-family: var(--semantic-typography-text-md-font);
+  font-weight: var(--semantic-typography-text-md-regular);
+  font-size: var(--semantic-typography-text-md-size);
+  line-height: var(--semantic-typography-text-md-line-height);
+  letter-spacing: var(--semantic-typography-text-md-letter-spacing);
+  color: var(--semantic-color-type-default);
+  margin: 0;
+}
+
+/* Reduced motion — honour user preference */
+@media (prefers-reduced-motion: reduce) {
+  .radio-card {
+    transition: none;
+  }
+  .radio-card:hover:not(.is-disabled),
+  .radio-card:active:not(.is-disabled),
+  .radio-card.is-selected:hover:not(.is-disabled) {
+    transform: none;
+  }
+}

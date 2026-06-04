@@ -1,0 +1,92 @@
+/**
+ * Atlas / Lens design tokens — Radio Card subset
+ * Sourced from Figma file: Interactive-card
+ * https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Interactive-card
+ *
+ * Only tokens consumed by the RadioCard component (and its surrounding container)
+ * are declared here. Names mirror the Figma variable paths (kebab-case).
+ */
+
+:root {
+  /* ----- Core spacing ----- */
+  --spacing-0: 0px;
+  --spacing-0-25: 2px;
+  --spacing-0-5: 4px;
+  --spacing-1: 8px;
+  --spacing-1-5: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+
+  /* ----- Semantic spacing (desktop) ----- */
+  --semantic-spacing-desktop-padding-0: 0px;
+  --semantic-spacing-desktop-padding-1: 4px;
+  --semantic-spacing-desktop-padding-2: 12px;
+  --semantic-spacing-desktop-padding-3: 20px;
+  --semantic-spacing-desktop-gap-0: 0px;
+  --semantic-spacing-desktop-gap-1-5: 8px;
+  --semantic-spacing-desktop-gap-3: 16px;
+
+  /* ----- Component-level spacing ----- */
+  --component-card-padding-vertical: 16px;
+
+  /* ----- Radius ----- */
+  --semantic-radius-lg: 12px;
+  --semantic-radius-lg-16: 16px;
+  --semantic-radius-full: 9999px;
+
+  /* ----- Color: surface ----- */
+  --semantic-color-surface-default: #ffffff;
+  --semantic-color-surface-variant: #eeeff5;
+  --semantic-color-surface-variant-subtle: #f9f9fc;
+
+  /* ----- Color: type ----- */
+  --semantic-color-type-default: #232429;
+  --semantic-color-type-muted: #575a67;
+
+  /* ----- Color: outline ----- */
+  --semantic-color-outline-static: #e2e2e5;
+  --semantic-color-action-secondary-outline-disabled: #dee0e9;
+
+  /* ----- Color: accent / shadow ----- */
+  --semantic-color-accent-highlighted-background: #ffdad7;
+  --semantic-color-shadow-default: rgba(15, 17, 19, 0.10);
+
+  /* ----- Component: Form (radio button) ----- */
+  --component-form-outline: #6e7182;
+  --component-form-hover: #dee0e9;
+  --component-form-active: #c3c4cc;
+  --component-form-indicator: #0040d5;
+  --component-form-default-selected: #efefff;
+  --component-form-outline-selected: #0040d5;
+
+  /* ----- Typography: H6 Xs (section title) ----- */
+  --semantic-typography-title-h6-xs-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --semantic-typography-title-h6-xs-emphasis: 600; /* SemiBold */
+  --semantic-typography-title-h6-xs-size: 14px;
+  --semantic-typography-title-h6-xs-line-height: 20px;
+  --semantic-typography-title-h6-xs-letter-spacing: 0.3px;
+
+  /* ----- Typography: Text Md (card label) ----- */
+  --semantic-typography-text-md-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --semantic-typography-text-md-regular: 400;
+  --semantic-typography-text-md-size: 12px;
+  --semantic-typography-text-md-line-height: 16px;
+  --semantic-typography-text-md-letter-spacing: 0.3px;
+
+  /* ----- Shadow: Elevation Low (used in Figma "Pressed" state on container) ----- */
+  --semantic-shadow-elevation-low:
+    0 8px 16px 0 var(--semantic-color-shadow-default),
+    0 0 2px 0 var(--semantic-color-shadow-default);
+
+  /* ----- Hover elevation extension (NOT in Figma — added per product brief) -----
+   * Slightly stronger than elevation-low so the hover state reads as a clear lift.
+   */
+  --semantic-shadow-elevation-hover:
+    0 12px 24px 0 rgba(15, 17, 19, 0.12),
+    0 2px 4px 0 rgba(15, 17, 19, 0.08);
+
+  /* ----- Motion ----- */
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 200ms;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+}

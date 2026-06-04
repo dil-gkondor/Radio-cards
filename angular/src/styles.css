@@ -1,0 +1,44 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  color: var(--semantic-color-type-default);
+  font-family: var(--semantic-typography-text-md-font);
+}
+
+.demo-page {
+  padding: 48px 32px 96px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.demo-page__title {
+  font-family: var(--semantic-typography-title-h6-xs-font);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: var(--semantic-color-type-default);
+  margin: 0 0 8px;
+}
+
+.demo-page__subtitle {
+  color: var(--semantic-color-type-muted);
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0 0 32px;
+}
+
+.demo-section {
+  margin-bottom: 40px;
+}
+
+.demo-section__label {
+  font-family: var(--semantic-typography-title-h6-xs-font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--semantic-color-type-muted);
+  margin: 0 0 12px;
+}

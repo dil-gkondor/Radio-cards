@@ -12,6 +12,7 @@ out/
 .next/
 .turbo/
 .cache/
+.angular/
 
 # Environment
 .env
