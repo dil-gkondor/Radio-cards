@@ -1,7 +1,7 @@
 # Radio Cards
 
 Radio card component implementations in **React** and **Angular**, built from the
-Figma design at [Interactive-card › Frame 3](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Interactive-card?node-id=1-693).
+Figma design at [Interactive-card › Radio card states](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Interactive-card?node-id=1-693).
 
 Three visual variants are rendered on the demo page, each covering the full
 interaction state matrix (default → hover → pressed → selected), and each driven
