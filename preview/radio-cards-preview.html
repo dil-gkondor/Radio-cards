@@ -227,14 +227,7 @@
       font-weight: 400; font-size: 12px; line-height: 16px;
       letter-spacing: 0.3px; color: var(--semantic-color-type-default);
     }
-    .rc-card:hover:not(.is-disabled):not(.is-selected) .rc-radio,
-    .rbt-tile:hover:not(.is-disabled):not(.is-selected) .rbt-radio {
-      background: var(--component-form-hover);
-    }
-    .rc-card:active:not(.is-disabled) .rc-radio,
-    .rbt-tile:active:not(.is-disabled) .rbt-radio {
-      background: var(--component-form-active);
-    }
+    /* Radio indicator stays in default; only the selected state changes it. */
     .rc-card.is-selected .rc-radio,
     .rbt-tile.is-selected .rbt-radio {
       border-color: var(--component-form-indicator); background: transparent;

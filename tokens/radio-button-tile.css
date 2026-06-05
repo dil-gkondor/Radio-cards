@@ -148,9 +148,9 @@
   text-align: left;
 }
 
-/* radio indicator hover/pressed/selected — same colour rules as the Card variant */
-.rbt-tile:hover:not(.is-disabled):not(.is-selected) .rbt-radio { background-color: var(--component-form-hover); }
-.rbt-tile:active:not(.is-disabled) .rbt-radio { background-color: var(--component-form-active); }
+/* Radio indicator: only two states — default and selected.
+ * The surrounding tile's hover / pressed / focused states do NOT propagate to
+ * the indicator. Selection is the only event that flips its appearance. */
 .rbt-tile.is-selected .rbt-radio {
   border-color: var(--component-form-indicator);
   background-color: transparent;

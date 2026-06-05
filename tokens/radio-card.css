@@ -148,9 +148,9 @@
   text-align: left;
 }
 
-/* radio indicator state hooks (driven from card hover / pressed / selected) */
-.rc-card:hover:not(.is-disabled):not(.is-selected) .rc-radio { background-color: var(--component-form-hover); }
-.rc-card:active:not(.is-disabled) .rc-radio { background-color: var(--component-form-active); }
+/* Radio indicator: only two states — default and selected.
+ * The surrounding card's hover / pressed / focused states do NOT propagate to
+ * the indicator. Selection is the only event that flips its appearance. */
 .rc-card.is-selected .rc-radio {
   border-color: var(--component-form-indicator);
   background-color: transparent;
