@@ -13,9 +13,10 @@
   <style>
     :root { color-scheme: light; }
 
-    /* ===== Atlas / Lens design tokens (subset used by RadioCard) ===== */
+    /* ===== Atlas / Lens tokens (Radio-Card subset) ===== */
     :root {
       --spacing-0: 0px;
+      --spacing-px: 1px;
       --spacing-0-25: 2px;
       --spacing-0-5: 4px;
       --spacing-1: 8px;
@@ -24,8 +25,11 @@
 
       --semantic-spacing-desktop-padding-0: 0px;
       --semantic-spacing-desktop-padding-1: 4px;
+      --semantic-spacing-desktop-padding-1-5: 8px;
       --semantic-spacing-desktop-padding-2: 12px;
       --semantic-spacing-desktop-padding-3: 20px;
+      --semantic-spacing-desktop-gap-0-5: 4px;
+      --semantic-spacing-desktop-gap-1: 8px;
       --semantic-spacing-desktop-gap-1-5: 8px;
       --semantic-spacing-desktop-gap-3: 16px;
 
@@ -43,24 +47,27 @@
       --semantic-color-type-muted: #575a67;
 
       --semantic-color-outline-static: #e2e2e5;
+      --semantic-color-outline-static-button-tile: #dee0e9;
+
+      --semantic-color-action-secondary-hover: #eeeff5;
+      --semantic-color-action-secondary-active: #dee0e9;
+
+      --semantic-color-ui-focus-main: #1c4ee4;
+      --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
+
       --semantic-color-shadow-default: rgba(15, 17, 19, 0.10);
+      --semantic-shadow-elevation-low:
+        0 0 1px var(--semantic-color-shadow-default),
+        0 1px 1px var(--semantic-color-shadow-default);
 
       --component-form-outline: #6e7182;
       --component-form-hover: #dee0e9;
       --component-form-active: #c3c4cc;
       --component-form-indicator: #0040d5;
-      --component-form-default-selected: #efefff;
       --component-form-outline-selected: #0040d5;
 
       --semantic-typography-title-h6-xs-font: 'Inter', system-ui, sans-serif;
       --semantic-typography-text-md-font: 'Inter', system-ui, sans-serif;
-
-      --semantic-shadow-elevation-low:
-        0 8px 16px 0 var(--semantic-color-shadow-default),
-        0 0 2px 0 var(--semantic-color-shadow-default);
-      --semantic-shadow-elevation-hover:
-        0 12px 24px 0 rgba(15, 17, 19, 0.12),
-        0 2px 4px 0 rgba(15, 17, 19, 0.08);
 
       --motion-duration-fast: 150ms;
       --motion-duration-base: 200ms;
@@ -70,178 +77,188 @@
     /* ===== Page ===== */
     * { box-sizing: border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
-      background: #ffffff;
+      margin: 0; padding: 0; background: #fff;
       color: var(--semantic-color-type-default);
       font-family: var(--semantic-typography-text-md-font);
     }
-    .page {
-      padding: 24px 24px 64px;
-      max-width: 760px;
-      margin: 0 auto;
-    }
+    .page { padding: 24px 24px 64px; max-width: 880px; margin: 0 auto; }
     .page__title {
       font-family: var(--semantic-typography-title-h6-xs-font);
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-      margin: 0 0 6px;
+      font-size: 22px; font-weight: 600; letter-spacing: 0.2px; margin: 0 0 6px;
     }
     .page__subtitle {
       color: var(--semantic-color-type-muted);
-      font-size: 13px;
-      line-height: 18px;
-      margin: 0 0 28px;
+      font-size: 13px; line-height: 18px; margin: 0 0 32px; max-width: 640px;
     }
-    .section { margin-bottom: 32px; }
-    .section__label {
+    .section { margin-bottom: 40px; }
+    .section__heading {
       font-family: var(--semantic-typography-title-h6-xs-font);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.7px;
-      text-transform: uppercase;
+      font-size: 15px; font-weight: 600; color: var(--semantic-color-type-default);
+      margin: 0 0 4px;
+    }
+    .section__copy {
       color: var(--semantic-color-type-muted);
-      margin: 0 0 10px;
+      font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
     }
 
-    /* ===== Radio Card Group ===== */
-    .radio-card-group {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: var(--spacing-0-5);
+    /* ===== Card group ===== */
+    .rc-card-group {
+      display: flex; flex-direction: column; gap: var(--spacing-0-5);
+      padding: var(--semantic-spacing-desktop-padding-2);
       border: 1px solid var(--semantic-color-outline-static);
       border-radius: var(--semantic-radius-lg-16);
-      background-color: var(--semantic-color-surface-default);
-      padding: var(--semantic-spacing-desktop-padding-2);
-      width: 100%;
+      background: var(--semantic-color-surface-default);
+      width: 642px; max-width: 100%;
     }
-    .radio-card-group--variant {
-      background-color: var(--semantic-color-surface-variant);
-      border-color: transparent;
-    }
-    .radio-card-group--variant-subtle {
-      background-color: var(--semantic-color-surface-variant-subtle);
-    }
-    .radio-card-group__title {
-      padding: var(--spacing-0-25) 0 var(--spacing-0-5) var(--spacing-0-5);
+    .rc-card-group__title {
       font-family: var(--semantic-typography-title-h6-xs-font);
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
-      letter-spacing: 0.3px;
-      color: var(--semantic-color-type-muted);
-      margin: 0;
+      font-weight: 600; font-size: 14px; line-height: 20px;
+      letter-spacing: 0.3px; color: var(--semantic-color-type-muted);
+      padding: var(--spacing-0-25) 0 var(--spacing-0-5) var(--spacing-0-5); margin: 0;
     }
-    .radio-card-group__grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .rc-card-group__grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--semantic-spacing-desktop-gap-3);
     }
 
-    /* ===== Radio Card ===== */
-    .radio-card {
-      display: flex;
-      align-items: center;
-      gap: var(--semantic-spacing-desktop-gap-1-5); /* 8px between indicator and label */
-      padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
-      background-color: var(--semantic-color-surface-default);
+    /* ===== Atlas Card primitive ===== */
+    .atlas-card {
+      background: var(--semantic-color-surface-default);
       border: 1px solid var(--semantic-color-outline-static);
       border-radius: var(--semantic-radius-lg);
-      cursor: pointer;
-      user-select: none;
-      font: inherit;
-      text-align: left;
-      appearance: none;
-      outline: none;
-      position: relative;
+      padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
       transition:
         box-shadow var(--motion-duration-base) var(--motion-easing-standard),
-        transform   var(--motion-duration-base) var(--motion-easing-standard),
         border-color var(--motion-duration-fast) var(--motion-easing-standard),
         background-color var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    .radio-card:hover:not(.is-disabled) {
-      box-shadow: var(--semantic-shadow-elevation-hover);
-      transform: scale(1.01);
+    /* RadioCard on top of Atlas Card */
+    .rc-card {
+      cursor: pointer; user-select: none; text-align: left; width: 100%;
+      font: inherit; color: inherit; appearance: none; outline: none; display: block;
+      position: relative;
+    }
+    .rc-card:hover:not(.is-disabled):not(.is-selected) {
+      box-shadow: var(--semantic-shadow-elevation-low);
+    }
+    .rc-card:active:not(.is-disabled) {
+      background: var(--semantic-color-surface-variant-subtle);
+      box-shadow: none;
+    }
+    .rc-card:focus-visible {
+      outline: none;
+      box-shadow: var(--semantic-shadow-focus-default);
       z-index: 1;
     }
-    .radio-card:active:not(.is-disabled) {
-      box-shadow: none;
-      transform: scale(0.995);
-      background-color: var(--semantic-color-surface-variant-subtle);
+    .rc-card.is-selected {
+      border-color: var(--component-form-outline-selected);
+      background: var(--semantic-color-surface-default);
     }
-    .radio-card.is-selected {
-      background-color: var(--semantic-color-surface-default);
+    .rc-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+
+    /* ===== Button-tile group ===== */
+    .rbt-group {
+      display: flex; flex-direction: column; gap: var(--spacing-0-5);
+      padding: var(--semantic-spacing-desktop-padding-2);
+      border: 1px solid var(--semantic-color-outline-static);
+      border-radius: var(--semantic-radius-lg-16);
+      background: var(--semantic-color-surface-default);
+      width: 410px; max-width: 100%;
+    }
+    .rbt-group__title {
+      font-family: var(--semantic-typography-title-h6-xs-font);
+      font-weight: 600; font-size: 14px; line-height: 20px;
+      letter-spacing: 0.3px; color: var(--semantic-color-type-muted);
+      padding: var(--spacing-0-25) 0 var(--spacing-0-5) var(--spacing-0-5); margin: 0;
+    }
+    .rbt-group__grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--semantic-spacing-desktop-gap-3);
+    }
+
+    /* ===== Atlas Button Tile primitive ===== */
+    .atlas-button-tile {
+      background: var(--semantic-color-surface-default);
+      border: 1px solid var(--semantic-color-outline-static-button-tile);
+      border-radius: var(--semantic-radius-lg);
+      padding: var(--semantic-spacing-desktop-padding-1-5) var(--semantic-spacing-desktop-padding-2);
+      min-height: 64px;
+      cursor: pointer; user-select: none; text-align: left; width: 100%;
+      display: flex; align-items: center;
+      font: inherit; color: inherit; appearance: none; outline: none; position: relative;
+      transition:
+        background-color var(--motion-duration-fast) var(--motion-easing-standard),
+        border-color var(--motion-duration-fast) var(--motion-easing-standard),
+        box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
+    }
+    .rbt-tile:hover:not(.is-disabled):not(.is-selected) {
+      background: var(--semantic-color-action-secondary-hover);
+    }
+    .rbt-tile:active:not(.is-disabled) {
+      background: var(--semantic-color-action-secondary-active);
+    }
+    .rbt-tile:focus-visible {
+      outline: none;
+      box-shadow: var(--semantic-shadow-focus-default);
+      z-index: 1;
+    }
+    .rbt-tile.is-selected {
+      background: var(--semantic-color-surface-default);
       border-color: var(--component-form-outline-selected);
     }
-    .radio-card.is-selected:hover:not(.is-disabled) {
-      box-shadow: none;
-      transform: none;
-    }
-    .radio-card:focus-visible {
-      outline: 2px solid var(--component-form-indicator);
-      outline-offset: 2px;
-    }
-    .radio-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+    .rbt-tile.is-disabled { cursor: not-allowed; opacity: 0.55; }
 
-    .radio-card__indicator {
-      flex: 0 0 auto;
-      width: 16px;
-      height: 16px;
+    /* ===== Shared content (radio + label) — both solutions ===== */
+    .rc-content, .rbt-content {
+      display: flex; align-items: center;
+      gap: var(--semantic-spacing-desktop-gap-1-5);
+    }
+    .rc-radio, .rbt-radio {
+      flex: 0 0 auto; width: 24px; height: 24px;
       border-radius: var(--semantic-radius-full);
       border: 1.5px solid var(--component-form-outline);
-      background-color: transparent;
-      position: relative;
+      background: transparent; position: relative;
       transition:
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
         border-color var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    .radio-card:hover:not(.is-disabled) .radio-card__indicator { background-color: var(--component-form-hover); }
-    .radio-card:active:not(.is-disabled) .radio-card__indicator { background-color: var(--component-form-active); }
-    .radio-card.is-selected .radio-card__indicator { border-color: var(--component-form-indicator); background-color: transparent; }
-    .radio-card.is-selected .radio-card__indicator::after {
-      content: '';
-      position: absolute;
-      inset: 2px;
-      border-radius: var(--semantic-radius-full);
-      background-color: var(--component-form-indicator);
-    }
-    .radio-card.is-selected:hover:not(.is-disabled) .radio-card__indicator { background-color: transparent; }
-
-    .radio-card__label {
+    .rc-label, .rbt-label {
       font-family: var(--semantic-typography-text-md-font);
-      font-weight: 400;
-      font-size: 12px;
-      line-height: 16px;
-      letter-spacing: 0.3px;
-      color: var(--semantic-color-type-default);
+      font-weight: 400; font-size: 12px; line-height: 16px;
+      letter-spacing: 0.3px; color: var(--semantic-color-type-default);
+    }
+    .rc-card:hover:not(.is-disabled):not(.is-selected) .rc-radio,
+    .rbt-tile:hover:not(.is-disabled):not(.is-selected) .rbt-radio {
+      background: var(--component-form-hover);
+    }
+    .rc-card:active:not(.is-disabled) .rc-radio,
+    .rbt-tile:active:not(.is-disabled) .rbt-radio {
+      background: var(--component-form-active);
+    }
+    .rc-card.is-selected .rc-radio,
+    .rbt-tile.is-selected .rbt-radio {
+      border-color: var(--component-form-indicator); background: transparent;
+    }
+    .rc-card.is-selected .rc-radio::after,
+    .rbt-tile.is-selected .rbt-radio::after {
+      content: ''; position: absolute; inset: 5px;
+      border-radius: var(--semantic-radius-full);
+      background: var(--component-form-indicator);
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .radio-card { transition: none; }
-      .radio-card:hover:not(.is-disabled),
-      .radio-card:active:not(.is-disabled),
-      .radio-card.is-selected:hover:not(.is-disabled) { transform: none; }
+      .atlas-card, .atlas-button-tile, .rc-radio, .rbt-radio { transition: none; }
     }
 
     .note {
-      margin-top: 32px;
-      padding: 12px 14px;
+      margin-top: 28px; padding: 12px 14px;
       border-left: 3px solid var(--component-form-indicator);
-      background: #f5f6ff;
-      color: var(--semantic-color-type-default);
-      font-size: 12.5px;
-      line-height: 18px;
-      border-radius: 4px;
+      background: #f5f6ff; color: var(--semantic-color-type-default);
+      font-size: 12.5px; line-height: 18px; border-radius: 4px;
     }
     .note code {
-      background: #fff;
-      border: 1px solid var(--semantic-color-outline-static);
-      padding: 1px 5px;
-      border-radius: 4px;
-      font-size: 12px;
+      background: #fff; border: 1px solid var(--semantic-color-outline-static);
+      padding: 1px 5px; border-radius: 4px; font-size: 12px;
     }
   </style>
 </head>
@@ -249,27 +266,36 @@
   <main class="page">
     <h1 class="page__title">Radio Cards · Live preview</h1>
     <p class="page__subtitle">
-      Same CSS / tokens / state matrix that the React and Angular apps ship with.
-      Hover, click, keyboard-navigate — the elevation + scale lift is on every card.
+      Two solutions for the same radio-card pattern. Both use Atlas / Lens
+      Figma tokens. Hover, click, and Tab through each group to see the full
+      state matrix (default · hover · pressed · focused · selected).
     </p>
 
     <section class="section">
-      <p class="section__label">Variant 1 — default surface</p>
-      <div id="g1"></div>
+      <h2 class="section__heading">Solution 1 — built on the Atlas Card</h2>
+      <p class="section__copy">
+        Default · hover (soft elevation) · pressed (variant-subtle fill) ·
+        focused (UI/Focus/Main ring) · selected (blue outline).
+      </p>
+      <div id="card-group"></div>
     </section>
+
     <section class="section">
-      <p class="section__label">Variant 2 — variant surface</p>
-      <div id="g2"></div>
-    </section>
-    <section class="section">
-      <p class="section__label">Variant 3 — variant-subtle surface</p>
-      <div id="g3"></div>
+      <h2 class="section__heading">Solution 2 — built on the Atlas Button Tile</h2>
+      <p class="section__copy">
+        Default · hover (action-secondary fill) · pressed (action-secondary-active) ·
+        focused (focus-ring shadow) · selected (blue outline).
+      </p>
+      <div id="tile-group"></div>
     </section>
 
     <div class="note">
-      This embedded preview uses the exact CSS in <code>tokens/radio-card.css</code>.
-      To run the real React app: <code>cd react && npm install && npm run dev</code> → <code>http://127.0.0.1:5173</code>.
-      Angular: <code>cd angular && npm install && npm start</code> → <code>http://127.0.0.1:4200</code>.
+      This preview uses the same CSS in <code>tokens/radio-card.css</code> +
+      <code>tokens/radio-button-tile.css</code>. To run the real React app:
+      <code>cd react &amp;&amp; npm install &amp;&amp; npm run dev</code> →
+      <code>http://127.0.0.1:5173</code>. Angular:
+      <code>cd angular &amp;&amp; npm install &amp;&amp; npm start</code> →
+      <code>http://127.0.0.1:4200</code>.
     </div>
   </main>
 
@@ -281,47 +307,48 @@
       { value: 'oversight', label: 'Oversight' },
     ];
 
-    function renderGroup(mountId, { title, variant, initialValue }) {
-      const mount = document.getElementById(mountId);
-      let value = initialValue;
+    function renderGroup(opts) {
+      const mount = document.getElementById(opts.mountId);
+      let value = opts.initialValue;
 
       const group = document.createElement('div');
-      group.className = 'radio-card-group';
-      if (variant === 'variant') group.classList.add('radio-card-group--variant');
-      if (variant === 'variant-subtle') group.classList.add('radio-card-group--variant-subtle');
+      group.className = opts.kind === 'card' ? 'rc-card-group' : 'rbt-group';
       group.setAttribute('role', 'radiogroup');
-      group.setAttribute('aria-label', title);
+      group.setAttribute('aria-label', opts.title);
 
       const heading = document.createElement('p');
-      heading.className = 'radio-card-group__title';
-      heading.textContent = title;
+      heading.className = opts.kind === 'card' ? 'rc-card-group__title' : 'rbt-group__title';
+      heading.textContent = opts.title;
       group.appendChild(heading);
 
       const grid = document.createElement('div');
-      grid.className = 'radio-card-group__grid';
+      grid.className = opts.kind === 'card' ? 'rc-card-group__grid' : 'rbt-group__grid';
 
-      const cards = OPTIONS.map((opt, idx) => {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'radio-card';
-        card.setAttribute('role', 'radio');
-        card.dataset.value = opt.value;
-        card.tabIndex = (value === opt.value || (value === null && idx === 0)) ? 0 : -1;
+      const cards = OPTIONS.map((o) => {
+        const tag = opts.kind === 'card' ? 'div' : 'button';
+        const el = document.createElement(tag);
+        el.className = opts.kind === 'card' ? 'atlas-card rc-card' : 'atlas-button-tile rbt-tile';
+        if (tag === 'button') el.type = 'button';
+        el.setAttribute('role', 'radio');
+        el.dataset.value = o.value;
 
-        const ind = document.createElement('span');
-        ind.className = 'radio-card__indicator';
-        ind.setAttribute('aria-hidden', 'true');
-        card.appendChild(ind);
+        const content = document.createElement('span');
+        content.className = opts.kind === 'card' ? 'rc-content' : 'rbt-content';
 
-        const lbl = document.createElement('span');
-        lbl.className = 'radio-card__label';
-        lbl.textContent = opt.label;
-        card.appendChild(lbl);
+        const radio = document.createElement('span');
+        radio.className = opts.kind === 'card' ? 'rc-radio' : 'rbt-radio';
+        radio.setAttribute('aria-hidden', 'true');
 
-        card.addEventListener('click', () => {
-          select(opt.value);
-        });
-        return card;
+        const label = document.createElement('span');
+        label.className = opts.kind === 'card' ? 'rc-label' : 'rbt-label';
+        label.textContent = o.label;
+
+        content.appendChild(radio);
+        content.appendChild(label);
+        el.appendChild(content);
+
+        el.addEventListener('click', () => select(o.value));
+        return el;
       });
 
       cards.forEach((c) => grid.appendChild(c));
@@ -329,21 +356,19 @@
 
       function refresh() {
         cards.forEach((card) => {
-          const isSelected = card.dataset.value === value;
-          card.classList.toggle('is-selected', isSelected);
-          card.setAttribute('aria-checked', String(isSelected));
-          card.tabIndex = isSelected ? 0 : -1;
+          const isSel = card.dataset.value === value;
+          card.classList.toggle('is-selected', isSel);
+          card.setAttribute('aria-checked', String(isSel));
+          card.tabIndex = isSel ? 0 : -1;
         });
-        if (!cards.some((c) => c.dataset.value === value)) {
-          cards[0].tabIndex = 0;
-        }
+        if (!cards.some((c) => c.dataset.value === value)) cards[0].tabIndex = 0;
       }
       function select(v) { value = v; refresh(); }
       refresh();
 
       group.addEventListener('keydown', (e) => {
         const target = e.target;
-        if (!(target instanceof HTMLElement) || !target.classList.contains('radio-card')) return;
+        if (!(target instanceof HTMLElement)) return;
         const idx = cards.indexOf(target);
         if (idx === -1) return;
         let next = -1;
@@ -364,9 +389,8 @@
       mount.appendChild(group);
     }
 
-    renderGroup('g1', { title: 'Subscription', variant: 'default',        initialValue: 'none' });
-    renderGroup('g2', { title: 'Subscription', variant: 'variant',        initialValue: 'professional' });
-    renderGroup('g3', { title: 'Subscription', variant: 'variant-subtle', initialValue: null });
+    renderGroup({ mountId: 'card-group', kind: 'card', title: 'Subscription', initialValue: 'none' });
+    renderGroup({ mountId: 'tile-group', kind: 'tile', title: 'Subscription', initialValue: 'none' });
   </script>
 </body>
 </html>

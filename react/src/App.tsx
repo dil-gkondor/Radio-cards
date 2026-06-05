@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { RadioCardGroup, type RadioCardOption } from './components/RadioCardGroup';
+import { RadioButtonTileGroup } from './components/RadioButtonTileGroup';
 
 const options: RadioCardOption[] = [
   { value: 'none', label: 'None' },
@@ -9,49 +10,46 @@ const options: RadioCardOption[] = [
 ];
 
 export default function App() {
-  const [v1, setV1] = useState<string | null>('none');
-  const [v2, setV2] = useState<string | null>('professional');
-  const [v3, setV3] = useState<string | null>(null);
+  const [cardValue, setCardValue] = useState<string | null>('none');
+  const [tileValue, setTileValue] = useState<string | null>('none');
 
   return (
     <main className="demo-page">
       <h1 className="demo-page__title">Radio Cards · React</h1>
       <p className="demo-page__subtitle">
-        Three variants of the radio card group, all driven by Atlas / Lens Figma tokens.
-        Hover any card to see the elevation + scale animation (added per product brief
-        on top of the Figma interaction states).
+        Two solutions for the same radio-card pattern, side by side. Both pull
+        every value from Atlas / Lens Figma tokens. Hover, click, and Tab through
+        each group to see the full state matrix
+        (default · hover · pressed · focused · selected).
       </p>
 
       <section className="demo-section">
-        <p className="demo-section__label">Variant 1 — default surface</p>
+        <h2 className="demo-section__heading">Solution 1 — built on the Atlas Card</h2>
+        <p className="demo-section__copy">
+          The interactive Card surface drives default, hover (soft elevation),
+          pressed (variant-subtle fill) and selected (blue outline). Focus is a
+          UI/Focus/Main ring on the card itself.
+        </p>
         <RadioCardGroup
           title="Subscription"
           options={options}
-          value={v1}
-          onChange={setV1}
-          variant="default"
+          value={cardValue}
+          onChange={setCardValue}
         />
       </section>
 
       <section className="demo-section">
-        <p className="demo-section__label">Variant 2 — variant surface</p>
-        <RadioCardGroup
+        <h2 className="demo-section__heading">Solution 2 — built on the Atlas Button Tile</h2>
+        <p className="demo-section__copy">
+          The Button Tile primitive provides the hover (action-secondary), pressed
+          (action-secondary-active) and focus (focus-ring shadow) states out of
+          the box; selection is layered via the Form/Outline-selected border.
+        </p>
+        <RadioButtonTileGroup
           title="Subscription"
           options={options}
-          value={v2}
-          onChange={setV2}
-          variant="variant"
-        />
-      </section>
-
-      <section className="demo-section">
-        <p className="demo-section__label">Variant 3 — variant-subtle surface</p>
-        <RadioCardGroup
-          title="Subscription"
-          options={options}
-          value={v3}
-          onChange={setV3}
-          variant="variant-subtle"
+          value={tileValue}
+          onChange={setTileValue}
         />
       </section>
     </main>

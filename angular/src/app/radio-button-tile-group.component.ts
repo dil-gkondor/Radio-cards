@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -11,24 +10,20 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RadioCardComponent } from './radio-card.component';
-
-export interface RadioCardOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
+import { RadioButtonTileComponent } from './radio-button-tile.component';
+import type { RadioCardOption } from './radio-card-group.component';
 
 @Component({
-  selector: 'app-radio-card-group',
+  selector: 'app-radio-button-tile-group',
   standalone: true,
-  imports: [CommonModule, RadioCardComponent],
+  imports: [CommonModule, RadioButtonTileComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <p class="rc-card-group__title">{{ title }}</p>
-    <div class="rc-card-group__grid">
-      <app-radio-card
+    <p class="rbt-group__title">{{ title }}</p>
+    <div class="rbt-group__grid">
+      <button
+        appRadioButtonTile
         *ngFor="let opt of options; let i = index; trackBy: trackByValue"
         [label]="opt.label"
         [value]="opt.value"
@@ -37,26 +32,24 @@ export interface RadioCardOption {
         [tabIndexValue]="isInTabOrder(opt, i) ? 0 : -1"
         (selectValue)="onSelect($event)"
         (navigate)="onNavigate($event, i)"
-      ></app-radio-card>
+      ></button>
     </div>
   `,
 })
-export class RadioCardGroupComponent implements AfterViewInit {
+export class RadioButtonTileGroupComponent {
   @Input({ required: true }) title!: string;
   @Input({ required: true }) options: RadioCardOption[] = [];
   @Input() value: string | null = null;
 
   @Output() valueChange = new EventEmitter<string>();
 
-  @ViewChildren(RadioCardComponent) cards!: QueryList<RadioCardComponent>;
+  @ViewChildren(RadioButtonTileComponent) tiles!: QueryList<RadioButtonTileComponent>;
 
-  @HostBinding('class.rc-card-group') readonly base = true;
+  @HostBinding('class.rbt-group') readonly base = true;
   @HostBinding('attr.role') readonly role = 'radiogroup';
   @HostBinding('attr.aria-label') get ariaLabel() {
     return this.title;
   }
-
-  ngAfterViewInit(): void {}
 
   isInTabOrder(opt: RadioCardOption, idx: number): boolean {
     if (this.value !== null) return opt.value === this.value;
@@ -76,8 +69,7 @@ export class RadioCardGroupComponent implements AfterViewInit {
       next = (idx - 1 + this.options.length) % this.options.length;
     if (next >= 0) {
       event.preventDefault();
-      const target = this.cards.toArray()[next];
-      target?.focus();
+      this.tiles.toArray()[next]?.focus();
       this.onSelect(this.options[next].value);
     }
   }

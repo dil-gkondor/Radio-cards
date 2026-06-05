@@ -10,28 +10,26 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardComponent } from './primitives/card.component';
 
 /**
- * Card-based Radio Card. Wraps the Atlas Card primitive with role="radio"
- * semantics; selection / focus / keyboard nav is owned by the parent group.
+ * Button Tile-based Radio Card. Renders as a <button appButtonTile> with
+ * radio semantics. Visual states (hover, pressed, focused, selected) come
+ * from the .atlas-button-tile + .rbt-tile / .is-selected CSS chain.
  */
 @Component({
-  selector: 'app-radio-card',
+  selector: 'button[appRadioButtonTile]',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   template: `
-    <app-card>
-      <div class="rc-content">
-        <span class="rc-radio" aria-hidden="true"></span>
-        <span class="rc-label">{{ label }}</span>
-      </div>
-    </app-card>
+    <span class="rbt-content">
+      <span class="rbt-radio" aria-hidden="true"></span>
+      <span class="rbt-label">{{ label }}</span>
+    </span>
   `,
 })
-export class RadioCardComponent {
+export class RadioButtonTileComponent {
   @Input({ required: true }) label!: string;
   @Input({ required: true }) value!: string;
   @Input() checked = false;
@@ -47,13 +45,15 @@ export class RadioCardComponent {
     this.host.nativeElement.focus();
   }
 
-  @HostBinding('class.rc-card') readonly base = true;
+  @HostBinding('class.atlas-button-tile') readonly base = true;
+  @HostBinding('class.rbt-tile') readonly tileClass = true;
   @HostBinding('class.is-selected') get selectedClass() {
     return this.checked;
   }
   @HostBinding('class.is-disabled') get disabledClass() {
     return this.disabled;
   }
+  @HostBinding('attr.type') readonly buttonType = 'button';
   @HostBinding('attr.role') readonly role = 'radio';
   @HostBinding('attr.aria-checked') get ariaChecked() {
     return this.checked;
@@ -63,6 +63,9 @@ export class RadioCardComponent {
   }
   @HostBinding('attr.tabindex') get tabIndex() {
     return this.disabled ? -1 : this.tabIndexValue;
+  }
+  @HostBinding('attr.disabled') get disabledAttr() {
+    return this.disabled ? '' : null;
   }
   @HostBinding('attr.data-value') get dataValue() {
     return this.value;

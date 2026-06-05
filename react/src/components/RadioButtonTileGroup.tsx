@@ -1,14 +1,9 @@
 import { useCallback, useId, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
-import { RadioCard } from './RadioCard';
+import { RadioButtonTile } from './RadioButtonTile';
+import type { RadioCardOption } from './RadioCardGroup';
 
-export interface RadioCardOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export interface RadioCardGroupProps {
+export interface RadioButtonTileGroupProps {
   title: string;
   options: RadioCardOption[];
   value: string | null;
@@ -16,39 +11,29 @@ export interface RadioCardGroupProps {
   name?: string;
 }
 
-/**
- * Group of Card-based RadioCards. Owns selection, arrow-key navigation, and
- * the tabindex roving pattern (only the selected — or first — card is in the
- * tab order, the others move via arrow keys).
- */
-export function RadioCardGroup({
+/** Group of Button-Tile-based radio options. Same a11y model as RadioCardGroup. */
+export function RadioButtonTileGroup({
   title,
   options,
   value,
   onChange,
   name,
-}: RadioCardGroupProps) {
+}: RadioButtonTileGroupProps) {
   const fallbackName = useId();
   const groupName = name ?? fallbackName;
-  const refs = useRef<Array<HTMLDivElement | null>>([]);
+  const refs = useRef<Array<HTMLButtonElement | null>>([]);
 
-  const handleSelect = useCallback(
-    (v: string) => {
-      onChange(v);
-    },
-    [onChange],
-  );
+  const handleSelect = useCallback((v: string) => onChange(v), [onChange]);
 
   const handleNav = useCallback(
-    (idx: number) => (e: KeyboardEvent<HTMLDivElement>) => {
+    (idx: number) => (e: KeyboardEvent<HTMLButtonElement>) => {
       let next = -1;
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (idx + 1) % options.length;
       if (e.key === 'ArrowUp' || e.key === 'ArrowLeft')
         next = (idx - 1 + options.length) % options.length;
       if (next >= 0) {
         e.preventDefault();
-        const target = refs.current[next];
-        if (target) target.focus();
+        refs.current[next]?.focus();
         onChange(options[next].value);
       }
     },
@@ -58,15 +43,15 @@ export function RadioCardGroup({
   const firstEnabledIdx = options.findIndex((o) => !o.disabled);
 
   return (
-    <div role="radiogroup" aria-label={title} className="rc-card-group">
-      <p className="rc-card-group__title">{title}</p>
-      <div className="rc-card-group__grid">
+    <div role="radiogroup" aria-label={title} className="rbt-group">
+      <p className="rbt-group__title">{title}</p>
+      <div className="rbt-group__grid">
         {options.map((opt, idx) => {
           const isSelected = opt.value === value;
           const isFirst = idx === firstEnabledIdx;
           const isInTabOrder = isSelected || (value === null && isFirst);
           return (
-            <RadioCard
+            <RadioButtonTile
               key={opt.value}
               ref={(el) => {
                 refs.current[idx] = el;

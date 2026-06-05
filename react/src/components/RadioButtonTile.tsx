@@ -1,30 +1,31 @@
 import { forwardRef } from 'react';
 import type { KeyboardEvent } from 'react';
-import { Card } from '../primitives/Card';
+import { ButtonTile } from '../primitives/ButtonTile';
 
-export interface RadioCardProps {
+export interface RadioButtonTileProps {
   label: string;
   value: string;
   checked: boolean;
   disabled?: boolean;
   name?: string;
   onSelect?: (value: string) => void;
-  onKeyboardNav?: (event: KeyboardEvent<HTMLDivElement>) => void;
+  onKeyboardNav?: (event: KeyboardEvent<HTMLButtonElement>) => void;
   tabIndex?: number;
 }
 
 /**
- * Card-based Radio Card. Uses the Atlas Card primitive as the surface, layered
- * with a role="radio" interactive shell that handles selection, focus, and
- * keyboard navigation when used inside a radio group.
+ * Button Tile-based Radio Card. Wraps the Atlas Button Tile primitive with
+ * radio role and group navigation semantics. Visual states (hover, pressed,
+ * focused, selected) come from the tile primitive's CSS plus the `is-selected`
+ * modifier.
  */
-export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
-  function RadioCard(
+export const RadioButtonTile = forwardRef<HTMLButtonElement, RadioButtonTileProps>(
+  function RadioButtonTile(
     { label, value, checked, disabled, name, onSelect, onKeyboardNav, tabIndex },
     ref,
   ) {
     const classes = [
-      'rc-card',
+      'rbt-tile',
       checked ? 'is-selected' : '',
       disabled ? 'is-disabled' : '',
     ]
@@ -32,7 +33,7 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
       .join(' ');
 
     return (
-      <Card
+      <ButtonTile
         ref={ref}
         role="radio"
         aria-checked={checked}
@@ -40,6 +41,7 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
         tabIndex={disabled ? -1 : tabIndex ?? (checked ? 0 : -1)}
         data-name={name}
         data-value={value}
+        disabled={disabled}
         className={classes}
         onClick={() => !disabled && onSelect?.(value)}
         onKeyDown={(e) => {
@@ -52,11 +54,11 @@ export const RadioCard = forwardRef<HTMLDivElement, RadioCardProps>(
           onKeyboardNav?.(e);
         }}
       >
-        <div className="rc-content">
-          <span className="rc-radio" aria-hidden="true" />
-          <span className="rc-label">{label}</span>
+        <div className="rbt-content">
+          <span className="rbt-radio" aria-hidden="true" />
+          <span className="rbt-label">{label}</span>
         </div>
-      </Card>
+      </ButtonTile>
     );
   },
 );

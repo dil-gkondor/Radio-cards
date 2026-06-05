@@ -1,15 +1,16 @@
 /**
- * Atlas / Lens design tokens — Radio Card subset
- * Sourced from Figma file: Interactive-card
- * https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Interactive-card
+ * Atlas / Lens design tokens — Radio-Card workspace subset
+ * Source: https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card
  *
- * Only tokens consumed by the RadioCard component (and its surrounding container)
- * are declared here. Names mirror the Figma variable paths (kebab-case).
+ * These are the only tokens consumed by the two solutions in this repo:
+ *   1) Radio Card built on the Atlas Card component
+ *   2) Radio Card built on the Atlas Button Tile component
  */
 
 :root {
   /* ----- Core spacing ----- */
   --spacing-0: 0px;
+  --spacing-px: 1px;
   --spacing-0-25: 2px;
   --spacing-0-5: 4px;
   --spacing-1: 8px;
@@ -20,9 +21,12 @@
   /* ----- Semantic spacing (desktop) ----- */
   --semantic-spacing-desktop-padding-0: 0px;
   --semantic-spacing-desktop-padding-1: 4px;
+  --semantic-spacing-desktop-padding-1-5: 8px;
   --semantic-spacing-desktop-padding-2: 12px;
   --semantic-spacing-desktop-padding-3: 20px;
   --semantic-spacing-desktop-gap-0: 0px;
+  --semantic-spacing-desktop-gap-0-5: 4px;
+  --semantic-spacing-desktop-gap-1: 8px;
   --semantic-spacing-desktop-gap-1-5: 8px;
   --semantic-spacing-desktop-gap-3: 16px;
 
@@ -45,7 +49,21 @@
 
   /* ----- Color: outline ----- */
   --semantic-color-outline-static: #e2e2e5;
+  /* Button Tile uses a slightly different outline value — declared as its own
+     custom prop so the Card and Button Tile keep distinct token references. */
+  --semantic-color-outline-static-button-tile: #dee0e9;
   --semantic-color-action-secondary-outline-disabled: #dee0e9;
+
+  /* ----- Color: action (Button Tile hover/pressed) ----- */
+  --semantic-color-action-secondary-hover: #eeeff5;
+  --semantic-color-action-secondary-active: #dee0e9;
+
+  /* ----- Color: focus ----- */
+  --semantic-color-ui-focus-main: #1c4ee4;
+  /* Figma's "Shadow/Focus/Default": 3px blue spread + 1px white inner spread */
+  --semantic-shadow-focus-default:
+    0 0 0 1px #ffffff,
+    0 0 0 4px #0b4cce;
 
   /* ----- Color: accent / shadow ----- */
   --semantic-color-accent-highlighted-background: #ffdad7;
@@ -61,7 +79,7 @@
 
   /* ----- Typography: H6 Xs (section title) ----- */
   --semantic-typography-title-h6-xs-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --semantic-typography-title-h6-xs-emphasis: 600; /* SemiBold */
+  --semantic-typography-title-h6-xs-emphasis: 600;
   --semantic-typography-title-h6-xs-size: 14px;
   --semantic-typography-title-h6-xs-line-height: 20px;
   --semantic-typography-title-h6-xs-letter-spacing: 0.3px;
@@ -73,17 +91,12 @@
   --semantic-typography-text-md-line-height: 16px;
   --semantic-typography-text-md-letter-spacing: 0.3px;
 
-  /* ----- Shadow: Elevation Low (used in Figma "Pressed" state on container) ----- */
+  /* ----- Shadow: Elevation Low — Card hover (per updated Figma spec) -----
+   * Figma:  0 0 1px rgba(15,17,19,0.1) + 0 1px 1px rgba(15,17,19,0.1)
+   * Very soft: communicates lift without much depth. */
   --semantic-shadow-elevation-low:
-    0 8px 16px 0 var(--semantic-color-shadow-default),
-    0 0 2px 0 var(--semantic-color-shadow-default);
-
-  /* ----- Hover elevation extension (NOT in Figma — added per product brief) -----
-   * Slightly stronger than elevation-low so the hover state reads as a clear lift.
-   */
-  --semantic-shadow-elevation-hover:
-    0 12px 24px 0 rgba(15, 17, 19, 0.12),
-    0 2px 4px 0 rgba(15, 17, 19, 0.08);
+    0 0 1px var(--semantic-color-shadow-default),
+    0 1px 1px var(--semantic-color-shadow-default);
 
   /* ----- Motion ----- */
   --motion-duration-fast: 150ms;

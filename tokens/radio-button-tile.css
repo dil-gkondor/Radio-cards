@@ -1,23 +1,20 @@
 /**
- * Radio Card — Card-based solution
+ * Radio Card — Button Tile-based solution
  *
- * Uses the Atlas Card component as the surface and overlays a radio control
- * inside. Mapping to the new Figma spec (Radio-Card › Solution with Card):
+ * Uses the Atlas Button Tile component as the interactive surface. Mapping
+ * to Figma (Radio-Card › Solution with Button tile):
  *
- *   Default  → white surface, outline-static border
- *   Hover    → soft elevation-low drop shadow (per updated Figma)
- *   Pressed  → variant-subtle background, no shadow
- *   Focused  → focus-ring shadow (UI/Focus/Main, white inner spread)
- *   Selected → outline-selected (blue), filled radio dot
- *
- * The outer container (the "card group") shows a Subscription title and a
- * 2-column grid of cards.
+ *   Default  → white surface, outline-static-button-tile (#dee0e9) border
+ *   Hover    → action/secondary/hover (#eeeff5) background
+ *   Pressed  → action/secondary/active (#dee0e9) background
+ *   Focused  → focus-ring shadow (UI/Focus/Main with white inner spread)
+ *   Selected → outline-selected (blue) border, filled blue radio dot
  */
 
 /* =========================================================================
- * Card-based group container
+ * Button-tile group container
  * ========================================================================= */
-.rc-card-group {
+.rbt-group {
   display: inline-flex;
   flex-direction: column;
   align-items: stretch;
@@ -26,12 +23,12 @@
   border: 1px solid var(--semantic-color-outline-static);
   border-radius: var(--semantic-radius-lg-16);
   background-color: var(--semantic-color-surface-default);
-  width: 642px;
+  width: 410px;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-.rc-card-group__title {
+.rbt-group__title {
   display: flex;
   align-items: center;
   padding: var(--spacing-0-25) 0 var(--spacing-0-5) var(--spacing-0-5);
@@ -46,7 +43,7 @@
   margin: 0;
 }
 
-.rc-card-group__grid {
+.rbt-group__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--semantic-spacing-desktop-gap-3);
@@ -54,26 +51,18 @@
 }
 
 /* =========================================================================
- * Card primitive — Atlas Card surface
+ * Button Tile primitive — Atlas Button Tile surface
  * ========================================================================= */
-.atlas-card {
+.atlas-button-tile {
+  /* Per Figma: padding 8px 12px, radius 12px, outline-static-button-tile */
   background-color: var(--semantic-color-surface-default);
-  border: 1px solid var(--semantic-color-outline-static);
+  border: 1px solid var(--semantic-color-outline-static-button-tile);
   border-radius: var(--semantic-radius-lg);
-  padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
+  padding: var(--semantic-spacing-desktop-padding-1-5) var(--semantic-spacing-desktop-padding-2);
+  min-height: 64px;
   box-sizing: border-box;
-  position: relative;
-  transition:
-    box-shadow var(--motion-duration-base) var(--motion-easing-standard),
-    border-color var(--motion-duration-fast) var(--motion-easing-standard),
-    background-color var(--motion-duration-fast) var(--motion-easing-standard);
-}
-
-/* =========================================================================
- * Radio Card — interactive variant of Atlas Card with radio role
- * ========================================================================= */
-.rc-card {
-  /* surface inherited from atlas-card */
+  display: flex;
+  align-items: center;
   cursor: pointer;
   user-select: none;
   text-align: left;
@@ -83,47 +72,58 @@
   appearance: none;
   -webkit-appearance: none;
   outline: none;
-  display: block;
+  position: relative;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
 }
 
-/* Hover — soft elevation-low shadow */
-.rc-card:hover:not(.is-disabled):not(.is-selected) {
-  box-shadow: var(--semantic-shadow-elevation-low);
+/* =========================================================================
+ * Radio Button Tile — interactive Button Tile + radio role
+ * ========================================================================= */
+.rbt-tile {
+  /* surface inherited from atlas-button-tile */
 }
 
-/* Pressed — variant-subtle background, no shadow */
-.rc-card:active:not(.is-disabled) {
-  background-color: var(--semantic-color-surface-variant-subtle);
-  box-shadow: none;
+/* Hover — light gray bg */
+.rbt-tile:hover:not(.is-disabled):not(.is-selected) {
+  background-color: var(--semantic-color-action-secondary-hover);
 }
 
-/* Focused — focus ring (matches Figma Shadow/Focus/Default) */
-.rc-card:focus-visible {
+/* Pressed — darker gray bg */
+.rbt-tile:active:not(.is-disabled) {
+  background-color: var(--semantic-color-action-secondary-active);
+}
+
+/* Focused — focus ring shadow */
+.rbt-tile:focus-visible {
   outline: none;
   box-shadow: var(--semantic-shadow-focus-default);
   z-index: 1;
 }
 
-/* Selected — blue outline, default surface, blue dot in indicator */
-.rc-card.is-selected {
-  border-color: var(--component-form-outline-selected);
+/* Selected — blue border, default surface, blue dot */
+.rbt-tile.is-selected {
   background-color: var(--semantic-color-surface-default);
+  border-color: var(--component-form-outline-selected);
 }
 
 /* Disabled */
-.rc-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+.rbt-tile.is-disabled { cursor: not-allowed; opacity: 0.55; }
 
 /* =========================================================================
- * Inner content (radio + label)  — shared with Button Tile
+ * Inner radio indicator + label
  * ========================================================================= */
-.rc-content {
+.rbt-content {
   display: flex;
   align-items: center;
   gap: var(--semantic-spacing-desktop-gap-1-5);
   padding: 0;
+  width: 100%;
 }
 
-.rc-radio {
+.rbt-radio {
   flex: 0 0 auto;
   width: 24px;
   height: 24px;
@@ -137,7 +137,7 @@
     border-color var(--motion-duration-fast) var(--motion-easing-standard);
 }
 
-.rc-label {
+.rbt-label {
   font-family: var(--semantic-typography-text-md-font);
   font-weight: var(--semantic-typography-text-md-regular);
   font-size: var(--semantic-typography-text-md-size);
@@ -148,14 +148,14 @@
   text-align: left;
 }
 
-/* radio indicator state hooks (driven from card hover / pressed / selected) */
-.rc-card:hover:not(.is-disabled):not(.is-selected) .rc-radio { background-color: var(--component-form-hover); }
-.rc-card:active:not(.is-disabled) .rc-radio { background-color: var(--component-form-active); }
-.rc-card.is-selected .rc-radio {
+/* radio indicator hover/pressed/selected — same colour rules as the Card variant */
+.rbt-tile:hover:not(.is-disabled):not(.is-selected) .rbt-radio { background-color: var(--component-form-hover); }
+.rbt-tile:active:not(.is-disabled) .rbt-radio { background-color: var(--component-form-active); }
+.rbt-tile.is-selected .rbt-radio {
   border-color: var(--component-form-indicator);
   background-color: transparent;
 }
-.rc-card.is-selected .rc-radio::after {
+.rbt-tile.is-selected .rbt-radio::after {
   content: '';
   position: absolute;
   inset: 5px;
@@ -164,5 +164,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .atlas-card, .rc-card, .rc-radio { transition: none; }
+  .atlas-button-tile, .rbt-radio { transition: none; }
 }
