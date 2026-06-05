@@ -231,15 +231,15 @@
       letter-spacing: 0.3px; color: var(--semantic-color-type-default);
     }
 
-    /* ===== Button Tile content (SMALL radio + Text/Sm label) ===== */
+    /* ===== Button Tile content (24px radio + Text/Md label) ===== */
     .rbt-content {
       display: flex; align-items: center;
-      gap: var(--semantic-spacing-desktop-gap-0-5);
-      padding-left: var(--spacing-1); padding-right: 0;
+      gap: var(--semantic-spacing-desktop-gap-1-5); /* 8px */
+      padding-left: 12px; padding-right: 0; /* Figma: pl spacing/1_5 */
       width: 100%;
     }
     .rbt-radio {
-      flex: 0 0 auto; width: 16px; height: 16px;
+      flex: 0 0 auto; width: 24px; height: 24px;
       border-radius: var(--semantic-radius-full);
       border: 1.5px solid var(--component-form-outline);
       background: transparent; position: relative;
@@ -248,9 +248,8 @@
         border-color var(--motion-duration-fast) var(--motion-easing-standard);
     }
     .rbt-label {
-      font-weight: 400;
-      font-size: var(--semantic-typography-text-sm-size);
-      line-height: var(--semantic-typography-text-sm-line-height);
+      font-family: var(--semantic-typography-text-md-font);
+      font-weight: 400; font-size: 12px; line-height: 16px;
       letter-spacing: 0.3px; color: var(--semantic-color-type-default);
     }
     /* Radio indicator stays in default; only the selected state changes it. */
@@ -258,15 +257,10 @@
     .rbt-tile.is-selected .rbt-radio {
       border-color: var(--component-form-indicator); background: transparent;
     }
-    /* 24px radio (Card) — inset 5px → 14px dot */
-    .rc-card.is-selected .rc-radio::after {
-      content: ''; position: absolute; inset: 5px;
-      border-radius: var(--semantic-radius-full);
-      background: var(--component-form-indicator);
-    }
-    /* 16px radio (small, Button Tile) — inset 3px → 10px dot */
+    /* 24px radio (both Card and Button Tile) — inset 5px → 14px dot */
+    .rc-card.is-selected .rc-radio::after,
     .rbt-tile.is-selected .rbt-radio::after {
-      content: ''; position: absolute; inset: 3px;
+      content: ''; position: absolute; inset: 5px;
       border-radius: var(--semantic-radius-full);
       background: var(--component-form-indicator);
     }
