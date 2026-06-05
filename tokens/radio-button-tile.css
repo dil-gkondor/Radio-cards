@@ -1,14 +1,21 @@
 /**
- * Radio Card — Button Tile-based solution
+ * Radio Card — Button Tile-based solution (small radio variant)
  *
- * Uses the Atlas Button Tile component as the interactive surface. Mapping
- * to Figma (Radio-Card › Solution with Button tile):
+ * Updated to match the Figma "small radio" spec on the Button Tile:
+ *   - Radio indicator is 16px (was 24px)
+ *   - Label uses Text/Sm typography (10px / 12px)
+ *   - Tile padding tightens to 4px (was 8/12)
+ *   - Tile content has 8px left padding and 4px gap between radio & label
  *
- *   Default  → white surface, outline-static-button-tile (#dee0e9) border
+ * State mapping (the tile surface, NOT the radio indicator):
+ *   Default  → white surface, outline-static-button-tile border
  *   Hover    → action/secondary/hover (#eeeff5) background
  *   Pressed  → action/secondary/active (#dee0e9) background
  *   Focused  → focus-ring shadow (UI/Focus/Main with white inner spread)
  *   Selected → outline-selected (blue) border, filled blue radio dot
+ *
+ * Radio indicator visual: only default and selected; tile state changes do
+ * not propagate to the radio.
  */
 
 /* =========================================================================
@@ -51,18 +58,21 @@
 }
 
 /* =========================================================================
- * Button Tile primitive — Atlas Button Tile surface
+ * Button Tile primitive — Atlas Button Tile surface (small variant)
  * ========================================================================= */
 .atlas-button-tile {
-  /* Per Figma: padding 8px 12px, radius 12px, outline-static-button-tile */
   background-color: var(--semantic-color-surface-default);
   border: 1px solid var(--semantic-color-outline-static-button-tile);
   border-radius: var(--semantic-radius-lg);
-  padding: var(--semantic-spacing-desktop-padding-1-5) var(--semantic-spacing-desktop-padding-2);
+  /* Per Figma: 4px padding all around */
+  padding: var(--semantic-spacing-desktop-padding-1);
   min-height: 64px;
+  max-height: 140px;
+  min-width: 185px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
   user-select: none;
   text-align: left;
@@ -80,53 +90,42 @@
 }
 
 /* =========================================================================
- * Radio Button Tile — interactive Button Tile + radio role
+ * Radio Button Tile — interactive Button Tile + radio role (small)
  * ========================================================================= */
-.rbt-tile {
-  /* surface inherited from atlas-button-tile */
-}
-
-/* Hover — light gray bg */
 .rbt-tile:hover:not(.is-disabled):not(.is-selected) {
   background-color: var(--semantic-color-action-secondary-hover);
 }
-
-/* Pressed — darker gray bg */
 .rbt-tile:active:not(.is-disabled) {
   background-color: var(--semantic-color-action-secondary-active);
 }
-
-/* Focused — focus ring shadow */
 .rbt-tile:focus-visible {
   outline: none;
   box-shadow: var(--semantic-shadow-focus-default);
   z-index: 1;
 }
-
-/* Selected — blue border, default surface, blue dot */
 .rbt-tile.is-selected {
   background-color: var(--semantic-color-surface-default);
   border-color: var(--component-form-outline-selected);
 }
-
-/* Disabled */
 .rbt-tile.is-disabled { cursor: not-allowed; opacity: 0.55; }
 
 /* =========================================================================
- * Inner radio indicator + label
+ * Inner content (small radio + small label)
  * ========================================================================= */
 .rbt-content {
   display: flex;
   align-items: center;
-  gap: var(--semantic-spacing-desktop-gap-1-5);
-  padding: 0;
+  gap: var(--semantic-spacing-desktop-gap-0-5); /* 4px */
+  /* Mirrors Figma: pl 8 / pr 0 inside the tile */
+  padding-left: var(--spacing-1);
+  padding-right: 0;
   width: 100%;
 }
 
 .rbt-radio {
   flex: 0 0 auto;
-  width: 24px;
-  height: 24px;
+  width: 16px;   /* small radio */
+  height: 16px;  /* small radio */
   border-radius: var(--semantic-radius-full);
   border: 1.5px solid var(--component-form-outline);
   background-color: transparent;
@@ -138,19 +137,18 @@
 }
 
 .rbt-label {
-  font-family: var(--semantic-typography-text-md-font);
-  font-weight: var(--semantic-typography-text-md-regular);
-  font-size: var(--semantic-typography-text-md-size);
-  line-height: var(--semantic-typography-text-md-line-height);
-  letter-spacing: var(--semantic-typography-text-md-letter-spacing);
+  /* Text/Sm — 10px / 12px (smaller than Card label which uses Text/Md) */
+  font-family: var(--semantic-typography-text-sm-font);
+  font-weight: var(--semantic-typography-text-sm-regular);
+  font-size: var(--semantic-typography-text-sm-size);
+  line-height: var(--semantic-typography-text-sm-line-height);
+  letter-spacing: var(--semantic-typography-text-sm-letter-spacing);
   color: var(--semantic-color-type-default);
   margin: 0;
   text-align: left;
 }
 
-/* Radio indicator: only two states — default and selected.
- * The surrounding tile's hover / pressed / focused states do NOT propagate to
- * the indicator. Selection is the only event that flips its appearance. */
+/* Radio indicator: only default and selected (tile state never propagates). */
 .rbt-tile.is-selected .rbt-radio {
   border-color: var(--component-form-indicator);
   background-color: transparent;
@@ -158,7 +156,8 @@
 .rbt-tile.is-selected .rbt-radio::after {
   content: '';
   position: absolute;
-  inset: 5px;
+  /* Smaller inset for the 16px radio so the dot keeps a visible ring around it */
+  inset: 3px;
   border-radius: var(--semantic-radius-full);
   background-color: var(--component-form-indicator);
 }

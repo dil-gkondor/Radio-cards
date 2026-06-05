@@ -91,6 +91,13 @@
   --semantic-typography-text-md-line-height: 16px;
   --semantic-typography-text-md-letter-spacing: 0.3px;
 
+  /* ----- Typography: Text Sm (button-tile label, small radio variant) ----- */
+  --semantic-typography-text-sm-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --semantic-typography-text-sm-regular: 400;
+  --semantic-typography-text-sm-size: 10px;
+  --semantic-typography-text-sm-line-height: 12px;
+  --semantic-typography-text-sm-letter-spacing: 0.3px;
+
   /* ----- Shadow: Elevation Low — Card hover (per updated Figma spec) -----
    * Figma:  0 0 1px rgba(15,17,19,0.1) + 0 1px 1px rgba(15,17,19,0.1)
    * Very soft: communicates lift without much depth. */

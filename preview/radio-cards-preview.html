@@ -33,6 +33,9 @@
       --semantic-spacing-desktop-gap-1-5: 8px;
       --semantic-spacing-desktop-gap-3: 16px;
 
+      --semantic-typography-text-sm-size: 10px;
+      --semantic-typography-text-sm-line-height: 12px;
+
       --component-card-padding-vertical: 16px;
 
       --semantic-radius-lg: 12px;
@@ -176,15 +179,15 @@
       gap: var(--semantic-spacing-desktop-gap-3);
     }
 
-    /* ===== Atlas Button Tile primitive ===== */
+    /* ===== Atlas Button Tile primitive (small variant) ===== */
     .atlas-button-tile {
       background: var(--semantic-color-surface-default);
       border: 1px solid var(--semantic-color-outline-static-button-tile);
       border-radius: var(--semantic-radius-lg);
-      padding: var(--semantic-spacing-desktop-padding-1-5) var(--semantic-spacing-desktop-padding-2);
-      min-height: 64px;
+      padding: var(--semantic-spacing-desktop-padding-1);
+      min-height: 64px; max-height: 140px; min-width: 185px;
       cursor: pointer; user-select: none; text-align: left; width: 100%;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: center;
       font: inherit; color: inherit; appearance: none; outline: none; position: relative;
       transition:
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
@@ -208,12 +211,12 @@
     }
     .rbt-tile.is-disabled { cursor: not-allowed; opacity: 0.55; }
 
-    /* ===== Shared content (radio + label) — both solutions ===== */
-    .rc-content, .rbt-content {
+    /* ===== Card content (default-size radio + Text/Md label) ===== */
+    .rc-content {
       display: flex; align-items: center;
       gap: var(--semantic-spacing-desktop-gap-1-5);
     }
-    .rc-radio, .rbt-radio {
+    .rc-radio {
       flex: 0 0 auto; width: 24px; height: 24px;
       border-radius: var(--semantic-radius-full);
       border: 1.5px solid var(--component-form-outline);
@@ -222,9 +225,32 @@
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
         border-color var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    .rc-label, .rbt-label {
+    .rc-label {
       font-family: var(--semantic-typography-text-md-font);
       font-weight: 400; font-size: 12px; line-height: 16px;
+      letter-spacing: 0.3px; color: var(--semantic-color-type-default);
+    }
+
+    /* ===== Button Tile content (SMALL radio + Text/Sm label) ===== */
+    .rbt-content {
+      display: flex; align-items: center;
+      gap: var(--semantic-spacing-desktop-gap-0-5);
+      padding-left: var(--spacing-1); padding-right: 0;
+      width: 100%;
+    }
+    .rbt-radio {
+      flex: 0 0 auto; width: 16px; height: 16px;
+      border-radius: var(--semantic-radius-full);
+      border: 1.5px solid var(--component-form-outline);
+      background: transparent; position: relative;
+      transition:
+        background-color var(--motion-duration-fast) var(--motion-easing-standard),
+        border-color var(--motion-duration-fast) var(--motion-easing-standard);
+    }
+    .rbt-label {
+      font-weight: 400;
+      font-size: var(--semantic-typography-text-sm-size);
+      line-height: var(--semantic-typography-text-sm-line-height);
       letter-spacing: 0.3px; color: var(--semantic-color-type-default);
     }
     /* Radio indicator stays in default; only the selected state changes it. */
@@ -232,9 +258,15 @@
     .rbt-tile.is-selected .rbt-radio {
       border-color: var(--component-form-indicator); background: transparent;
     }
-    .rc-card.is-selected .rc-radio::after,
-    .rbt-tile.is-selected .rbt-radio::after {
+    /* 24px radio (Card) — inset 5px → 14px dot */
+    .rc-card.is-selected .rc-radio::after {
       content: ''; position: absolute; inset: 5px;
+      border-radius: var(--semantic-radius-full);
+      background: var(--component-form-indicator);
+    }
+    /* 16px radio (small, Button Tile) — inset 3px → 10px dot */
+    .rbt-tile.is-selected .rbt-radio::after {
+      content: ''; position: absolute; inset: 3px;
       border-radius: var(--semantic-radius-full);
       background: var(--component-form-indicator);
     }
