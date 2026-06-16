@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="lens">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,7 +13,7 @@
   <style>
     :root { color-scheme: light; }
 
-    /* ===== Atlas / Lens tokens (Radio-Card subset) ===== */
+    /* ===== Atlas / Lens tokens (default) ===== */
     :root {
       --spacing-0: 0px;
       --spacing-px: 1px;
@@ -45,7 +45,6 @@
       --semantic-color-type-disabled: #a5a7b3;
 
       --semantic-color-outline-static: #e2e2e5;
-
       --semantic-color-ui-focus-main: #1c4ee4;
       --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
@@ -62,6 +61,7 @@
       --component-form-outline: #6e7182;
       --component-form-outline-disabled: #c3c4cc;
       --component-form-indicator: #0040d5;
+      --component-form-default-selected: #efefff;
       --component-form-outline-selected: #0040d5;
 
       --semantic-typography-title-h6-xs-font: 'Inter', system-ui, sans-serif;
@@ -70,33 +70,115 @@
       --motion-duration-fast: 150ms;
       --motion-duration-base: 200ms;
       --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+      --page-background: #ffffff;
+    }
+
+    /* ===== Atlas Light overrides ===== */
+    [data-theme="light"] {
+      --semantic-color-surface-default: #ffffff;
+      --semantic-color-surface-variant: #f0f0f3;
+      --semantic-color-surface-variant-subtle: #f9f9fc;
+      --semantic-color-type-default: #1a1c1e;
+      --semantic-color-type-muted: #515255;
+      --semantic-color-type-disabled: #aaabae;
+      --semantic-color-outline-static: #e2e2e5;
+      --component-form-outline: #515255;
+      --component-form-outline-disabled: #c6c6c9;
+      --page-background: #ffffff;
+    }
+
+    /* ===== Atlas Dark overrides ===== */
+    [data-theme="dark"] {
+      --semantic-color-surface-default: #1f2536;
+      --semantic-color-surface-variant: #353b4d;
+      --semantic-color-surface-variant-subtle: #2a3041;
+      --semantic-color-type-default: #ffffff;
+      --semantic-color-type-muted: #a5abc0;
+      --semantic-color-type-disabled: #71768b;
+      --semantic-color-outline-static: #4c5265;
+      --component-form-outline: #71768b;
+      --component-form-outline-disabled: #4c5265;
+      --component-form-indicator: #4069fe;
+      --component-form-outline-selected: #4069fe;
+      --component-form-default-selected: rgba(64, 105, 254, 0.16);
+      --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
+      --semantic-color-elevation-low-2: rgba(0, 0, 0, 0.28);
+      --semantic-color-elevation-low-3: rgba(0, 0, 0, 0.16);
+      --semantic-color-elevation-low-4: rgba(0, 0, 0, 0.08);
+      --semantic-shadow-focus-default: 0 0 0 1px #1f2536, 0 0 0 4px #4069fe;
+      --page-background: #151b2c;
+      color-scheme: dark;
     }
 
     /* ===== Page ===== */
     * { box-sizing: border-box; }
     html, body {
-      margin: 0; padding: 0; background: #fff;
+      margin: 0; padding: 0;
+      background: var(--page-background);
       color: var(--semantic-color-type-default);
       font-family: var(--semantic-typography-text-md-font);
+      transition:
+        background-color var(--motion-duration-base) var(--motion-easing-standard),
+        color var(--motion-duration-base) var(--motion-easing-standard);
+      min-height: 100vh;
     }
     .page { padding: 24px 24px 64px; max-width: 880px; margin: 0 auto; }
+    .page__header {
+      display: flex; gap: 24px; align-items: flex-start;
+      justify-content: space-between; margin: 0 0 32px;
+    }
     .page__title {
       font-family: var(--semantic-typography-title-h6-xs-font);
-      font-size: 22px; font-weight: 600; letter-spacing: 0.2px; margin: 0 0 6px;
+      font-size: 22px; font-weight: 600; letter-spacing: 0.2px;
+      color: var(--semantic-color-type-default); margin: 0 0 6px;
     }
     .page__subtitle {
       color: var(--semantic-color-type-muted);
-      font-size: 13px; line-height: 18px; margin: 0 0 32px; max-width: 640px;
+      font-size: 13px; line-height: 18px; margin: 0; max-width: 560px;
     }
-    .section { margin-bottom: 40px; }
     .section__heading {
       font-family: var(--semantic-typography-title-h6-xs-font);
-      font-size: 15px; font-weight: 600; color: var(--semantic-color-type-default);
-      margin: 0 0 4px;
+      font-size: 15px; font-weight: 600;
+      color: var(--semantic-color-type-default); margin: 0 0 4px;
     }
     .section__copy {
       color: var(--semantic-color-type-muted);
       font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
+    }
+
+    /* ===== Theme toggle ===== */
+    .theme-toggle {
+      display: inline-flex; align-items: center;
+      padding: 4px; gap: 2px;
+      background: var(--semantic-color-surface-variant);
+      border: 1px solid var(--semantic-color-outline-static);
+      border-radius: var(--semantic-radius-full);
+      flex-shrink: 0;
+    }
+    .theme-toggle__option {
+      appearance: none; background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--semantic-radius-full);
+      padding: 6px 14px; min-width: 64px;
+      font-family: var(--semantic-typography-text-md-font);
+      font-weight: 500; font-size: 12px; line-height: 16px; letter-spacing: 0.3px;
+      color: var(--semantic-color-type-muted);
+      cursor: pointer; user-select: none; outline: none;
+      transition:
+        background-color var(--motion-duration-fast) var(--motion-easing-standard),
+        color var(--motion-duration-fast) var(--motion-easing-standard),
+        border-color var(--motion-duration-fast) var(--motion-easing-standard),
+        box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
+    }
+    .theme-toggle__option:hover:not(.is-selected) { color: var(--semantic-color-type-default); }
+    .theme-toggle__option:focus-visible {
+      outline: none; box-shadow: var(--semantic-shadow-focus-default); z-index: 1;
+    }
+    .theme-toggle__option.is-selected {
+      background: var(--component-form-default-selected);
+      border-color: var(--component-form-outline-selected);
+      color: var(--component-form-indicator);
     }
 
     /* ===== Card group ===== */
@@ -130,7 +212,6 @@
         border-color var(--motion-duration-fast) var(--motion-easing-standard),
         background-color var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    /* RadioCard on top of Atlas Card */
     .rc-card {
       cursor: pointer; user-select: none; text-align: left; width: 100%;
       font: inherit; color: inherit; appearance: none; outline: none; display: block;
@@ -144,9 +225,7 @@
       box-shadow: none;
     }
     .rc-card:focus-visible {
-      outline: none;
-      box-shadow: var(--semantic-shadow-focus-default);
-      z-index: 1;
+      outline: none; box-shadow: var(--semantic-shadow-focus-default); z-index: 1;
     }
     .rc-card.is-selected {
       border-color: var(--component-form-outline-selected);
@@ -160,7 +239,6 @@
     .rc-card.is-disabled .rc-radio { border-color: var(--component-form-outline-disabled); }
     .rc-card.is-disabled .rc-label { color: var(--semantic-color-type-disabled); }
 
-    /* ===== Content (radio + label) ===== */
     .rc-content {
       display: flex; align-items: center;
       gap: var(--semantic-spacing-desktop-gap-1-5);
@@ -180,7 +258,6 @@
       letter-spacing: 0.3px; color: var(--semantic-color-type-default);
     }
 
-    /* Radio indicator stays in default; only the selected state changes it. */
     .rc-card.is-selected .rc-radio {
       border-color: var(--component-form-indicator); background: transparent;
     }
@@ -191,55 +268,83 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .atlas-card, .rc-radio { transition: none; }
-    }
-
-    .note {
-      margin-top: 28px; padding: 12px 14px;
-      border-left: 3px solid var(--component-form-indicator);
-      background: #f5f6ff; color: var(--semantic-color-type-default);
-      font-size: 12.5px; line-height: 18px; border-radius: 4px;
-    }
-    .note code {
-      background: #fff; border: 1px solid var(--semantic-color-outline-static);
-      padding: 1px 5px; border-radius: 4px; font-size: 12px;
+      html, body, .atlas-card, .rc-radio, .theme-toggle__option { transition: none; }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <h1 class="page__title">Radio Cards · Live preview</h1>
-    <p class="page__subtitle">
-      Radio-card pattern built on the Atlas Card component. All values come
-      from Atlas / Lens Figma tokens. Hover, click, and Tab through the group
-      to see the full state matrix (default · hover · pressed · focused ·
-      selected · disabled).
-    </p>
+    <header class="page__header">
+      <div>
+        <h1 class="page__title">Radio Cards · Live preview</h1>
+        <p class="page__subtitle">
+          Radio-card pattern built on the Atlas Card component. Switch themes
+          to see the same tokens repaint the surface, type, outline and
+          indicator colours.
+        </p>
+      </div>
+      <div id="theme-toggle"></div>
+    </header>
 
     <section class="section">
       <h2 class="section__heading">Built on the Atlas Card</h2>
       <p class="section__copy">
-        Default · hover (asymmetric Elevation/Low shadow) · pressed
-        (variant-subtle fill) · focused (UI/Focus/Main ring) · selected
-        (blue outline) · disabled (outline-disabled radio + type-disabled
-        label).
+        Default · hover (Elevation/Low shadow) · pressed (variant-subtle fill) ·
+        focused (focus ring) · selected (blue outline) · disabled
+        (outline-disabled radio + type-disabled label).
       </p>
       <div id="card-group"></div>
     </section>
-
-    <div class="note">
-      This preview uses the same CSS in <code>tokens/atlas-tokens.css</code> and
-      <code>tokens/radio-card.css</code>. To run the real React app:
-      <code>cd react &amp;&amp; npm install &amp;&amp; npm run dev</code> →
-      <code>http://127.0.0.1:5173</code>. Angular:
-      <code>cd angular &amp;&amp; npm install &amp;&amp; npm start</code> →
-      <code>http://127.0.0.1:4200</code>.
-    </div>
   </main>
 
   <script>
+    /* ---------- Theme toggle ---------- */
+    const THEMES = [
+      { value: 'lens', label: 'Lens' },
+      { value: 'light', label: 'Light' },
+      { value: 'dark', label: 'Dark' },
+    ];
+    let currentTheme = 'lens';
+
+    function renderThemeToggle() {
+      const mount = document.getElementById('theme-toggle');
+      const group = document.createElement('div');
+      group.className = 'theme-toggle';
+      group.setAttribute('role', 'radiogroup');
+      group.setAttribute('aria-label', 'Theme');
+
+      const buttons = THEMES.map((t) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'theme-toggle__option';
+        b.dataset.themeOption = t.value;
+        b.setAttribute('role', 'radio');
+        b.textContent = t.label;
+        b.addEventListener('click', () => setTheme(t.value));
+        return b;
+      });
+      buttons.forEach((b) => group.appendChild(b));
+
+      function refresh() {
+        buttons.forEach((b) => {
+          const sel = b.dataset.themeOption === currentTheme;
+          b.classList.toggle('is-selected', sel);
+          b.setAttribute('aria-checked', String(sel));
+        });
+      }
+      function setTheme(v) {
+        currentTheme = v;
+        document.documentElement.setAttribute('data-theme', v);
+        refresh();
+      }
+      refresh();
+      mount.appendChild(group);
+    }
+    renderThemeToggle();
+
+    /* ---------- Radio card group ---------- */
     const CARD_OPTIONS = [
-      { value: 'none', label: 'None', disabled: true }, // matches Figma 95:969
+      { value: 'none', label: 'None', disabled: true },
       { value: 'professional', label: 'Professional' },
       { value: 'contributor', label: 'Contributor' },
       { value: 'oversight', label: 'Oversight' },
@@ -272,25 +377,18 @@
           el.classList.add('is-disabled');
           el.setAttribute('aria-disabled', 'true');
         }
-
         const content = document.createElement('span');
         content.className = 'rc-content';
-
         const radio = document.createElement('span');
         radio.className = 'rc-radio';
         radio.setAttribute('aria-hidden', 'true');
-
         const label = document.createElement('span');
         label.className = 'rc-label';
         label.textContent = o.label;
-
         content.appendChild(radio);
         content.appendChild(label);
         el.appendChild(content);
-
-        el.addEventListener('click', () => {
-          if (!o.disabled) select(o.value);
-        });
+        el.addEventListener('click', () => { if (!o.disabled) select(o.value); });
         return el;
       });
 

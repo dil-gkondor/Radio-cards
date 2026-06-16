@@ -4,6 +4,7 @@ import App from './App';
 
 import '../../tokens/atlas-tokens.css';
 import '../../tokens/radio-card.css';
+import '../../tokens/theme-toggle.css';
 import './styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

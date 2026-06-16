@@ -4,22 +4,29 @@ import {
   RadioCardGroupComponent,
   type RadioCardOption,
 } from './radio-card-group.component';
+import { ThemeToggleComponent, type Theme } from './theme-toggle.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RadioCardGroupComponent],
+  imports: [CommonModule, RadioCardGroupComponent, ThemeToggleComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="demo-page">
-      <h1 class="demo-page__title">Radio Cards · Angular</h1>
-      <p class="demo-page__subtitle">
-        Radio-card pattern built on the Atlas Card component. Every value
-        (colour, spacing, radius, typography, shadow) comes from Atlas / Lens
-        Figma tokens. Hover, click, and Tab through the group to see the full
-        state matrix (default · hover · pressed · focused · selected ·
-        disabled).
-      </p>
+      <header class="demo-header">
+        <div>
+          <h1 class="demo-page__title">Radio Cards · Angular</h1>
+          <p class="demo-page__subtitle">
+            Radio-card pattern built on the Atlas Card component. Every value
+            comes from Atlas / Lens Figma tokens. The theme switcher rewrites
+            the same tokens on <code>:root</code>.
+          </p>
+        </div>
+        <app-theme-toggle
+          [value]="theme"
+          (valueChange)="theme = $event"
+        ></app-theme-toggle>
+      </header>
 
       <section class="demo-section">
         <h2 class="demo-section__heading">Built on the Atlas Card</h2>
@@ -49,4 +56,5 @@ export class AppComponent {
   ];
 
   cardValue: string | null = 'professional';
+  theme: Theme = 'lens';
 }

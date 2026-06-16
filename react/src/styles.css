@@ -3,15 +3,27 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  background-color: #ffffff;
+  background-color: var(--page-background);
   color: var(--semantic-color-type-default);
   font-family: var(--semantic-typography-text-md-font);
+  transition:
+    background-color var(--motion-duration-base) var(--motion-easing-standard),
+    color var(--motion-duration-base) var(--motion-easing-standard);
+  min-height: 100vh;
 }
 
 .demo-page {
   padding: 48px 32px 96px;
   max-width: 880px;
   margin: 0 auto;
+}
+
+.demo-header {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 0 0 40px;
 }
 
 .demo-page__title {
@@ -27,8 +39,16 @@ body,
   color: var(--semantic-color-type-muted);
   font-size: 13px;
   line-height: 19px;
-  margin: 0 0 40px;
+  margin: 0;
   max-width: 640px;
+}
+
+.demo-page__subtitle code {
+  background: var(--semantic-color-surface-variant-subtle);
+  border: 1px solid var(--semantic-color-outline-static);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
 }
 
 .demo-section {

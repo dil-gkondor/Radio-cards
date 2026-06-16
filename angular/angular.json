@@ -22,6 +22,7 @@
             "styles": [
               "../tokens/atlas-tokens.css",
               "../tokens/radio-card.css",
+              "../tokens/theme-toggle.css",
               "src/styles.css"
             ],
             "scripts": []

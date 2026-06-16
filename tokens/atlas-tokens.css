@@ -120,4 +120,70 @@
   --motion-duration-fast: 150ms;
   --motion-duration-base: 200ms;
   --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Page-level background. Lens default; overridden by the theme blocks below. */
+  --page-background: #ffffff;
 }
+
+/* =========================================================================
+ * Theme overrides — driven by [data-theme="…"] on <html> (or any ancestor)
+ *
+ *   data-theme="lens"   → no override (lens is the :root default above)
+ *   data-theme="light"  → Atlas Light
+ *   data-theme="dark"   → Atlas Dark
+ *
+ * Only the tokens that actually drive the radio-card surfaces are overridden
+ * here; everything else (spacing, radius, typography, motion) is theme-
+ * agnostic.
+ * ========================================================================= */
+
+/* ----- Atlas Light ----- */
+[data-theme="light"] {
+  --semantic-color-surface-default: #ffffff;
+  --semantic-color-surface-variant: #f0f0f3;      /* concrete[90] */
+  --semantic-color-surface-variant-subtle: #f9f9fc; /* concrete[95] */
+
+  --semantic-color-type-default: #1a1c1e;          /* concrete[10] */
+  --semantic-color-type-muted: #515255;            /* concrete[35] */
+  --semantic-color-type-disabled: #aaabae;         /* concrete[60] */
+
+  --semantic-color-outline-static: #e2e2e5;        /* concrete[80] */
+  --component-form-outline: #515255;
+  --component-form-outline-disabled: #c6c6c9;
+  --component-form-indicator: #0040d5;
+  --component-form-outline-selected: #0040d5;
+
+  --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
+
+  --page-background: #ffffff;
+}
+
+/* ----- Atlas Dark ----- */
+[data-theme="dark"] {
+  --semantic-color-surface-default: #1f2536;       /* storm[15] */
+  --semantic-color-surface-variant: #353b4d;       /* storm[25] */
+  --semantic-color-surface-variant-subtle: #2a3041;/* storm[20] */
+
+  --semantic-color-type-default: #ffffff;
+  --semantic-color-type-muted: #a5abc0;            /* storm[70] */
+  --semantic-color-type-disabled: #71768b;         /* storm[50] */
+
+  --semantic-color-outline-static: #4c5265;        /* storm[35] */
+  --component-form-outline: #71768b;               /* storm[50] */
+  --component-form-outline-disabled: #4c5265;
+  --component-form-indicator: #4069fe;             /* indigo[80] — readable on dark */
+  --component-form-outline-selected: #4069fe;
+
+  /* Dark surfaces need a softer / lower-contrast elevation shadow. */
+  --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
+  --semantic-color-elevation-low-2: rgba(0, 0, 0, 0.28);
+  --semantic-color-elevation-low-3: rgba(0, 0, 0, 0.16);
+  --semantic-color-elevation-low-4: rgba(0, 0, 0, 0.08);
+
+  /* Focus ring needs a dark inner spread (not white) so it reads on dark surfaces. */
+  --semantic-shadow-focus-default: 0 0 0 1px #1f2536, 0 0 0 4px #4069fe;
+
+  --page-background: #151b2c;                      /* storm[10] */
+  color-scheme: dark;
+}
+

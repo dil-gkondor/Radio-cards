@@ -1,0 +1,62 @@
+/**
+ * Segmented theme toggle — Lens / Light / Dark.
+ * Sits in the page header and writes data-theme on <html>.
+ *
+ * All values come from Atlas / Lens Figma tokens. The "selected" pill picks up
+ * the Form/Default-selected fill and Form/Outline-selected stroke, so the
+ * toggle visually inherits the same selection language used by the radio cards.
+ */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  gap: 2px;
+  background-color: var(--semantic-color-surface-variant);
+  border: 1px solid var(--semantic-color-outline-static);
+  border-radius: var(--semantic-radius-full);
+  box-sizing: border-box;
+}
+
+.theme-toggle__option {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--semantic-radius-full);
+
+  padding: 6px 14px;
+  min-width: 64px;
+
+  font-family: var(--semantic-typography-text-md-font);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.3px;
+  color: var(--semantic-color-type-muted);
+
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-easing-standard),
+    color var(--motion-duration-fast) var(--motion-easing-standard),
+    border-color var(--motion-duration-fast) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
+}
+
+.theme-toggle__option:hover:not(.is-selected) {
+  color: var(--semantic-color-type-default);
+}
+
+.theme-toggle__option:focus-visible {
+  outline: none;
+  box-shadow: var(--semantic-shadow-focus-default);
+  z-index: 1;
+}
+
+.theme-toggle__option.is-selected {
+  background-color: var(--component-form-default-selected);
+  border-color: var(--component-form-outline-selected);
+  color: var(--component-form-indicator);
+}
