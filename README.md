@@ -1,24 +1,27 @@
 # Radio Cards
 
-Two side-by-side **radio-card solutions** in both **React** and **Angular**, built
-from the Figma file [Radio-Card](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card):
+Radio-card pattern in both **React** and **Angular**, built on the Atlas **Card**
+component, sourced from the Figma file
+[Radio-Card](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card)
+([Solution with Card](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card?node-id=28-6360),
+[Hover](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card?node-id=95-911),
+[Disabled](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card?node-id=95-969)).
 
-- **Solution 1** — built on the Atlas **Card** component
-  ([Solution with Card](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card?node-id=28-6360))
-- **Solution 2** — built on the Atlas **Button Tile** component
-  ([Solution with Button tile](https://www.figma.com/design/BmWgXw0EIEEVXcplgJJ645/Radio-Card?node-id=28-6361))
+Every value (colour, spacing, radius, typography, shadow) comes from Atlas /
+Lens Figma tokens declared in `tokens/atlas-tokens.css`. The full state matrix
+is wired up:
 
-Every value (colour, spacing, radius, typography, focus shadow) comes from Atlas /
-Lens Figma tokens declared in `tokens/atlas-tokens.css`. All five interaction
-states are wired in both solutions:
+| State    | Card                                                       |
+| -------- | ---------------------------------------------------------- |
+| Default  | white surface, `outline/static` border                     |
+| Hover    | four-stop asymmetric `shadow/elevation/low` drop shadow    |
+| Pressed  | `surface/variant-subtle` background                        |
+| Focused  | `shadow/focus/default` (blue + white spread ring)          |
+| Selected | `form/outline-selected` border + filled blue indicator     |
+| Disabled | `form/outline-disabled` radio + `type/disabled` label      |
 
-| State    | Card solution                                | Button Tile solution                          |
-| -------- | -------------------------------------------- | --------------------------------------------- |
-| Default  | white surface, `outline/static` border       | white surface, `outline/static-button-tile`   |
-| Hover    | `shadow/elevation/low` (soft drop shadow)    | `action/secondary/hover` background           |
-| Pressed  | `surface/variant-subtle` background          | `action/secondary/active` background          |
-| Focused  | `shadow/focus/default` (blue + white spread) | `shadow/focus/default` (blue + white spread)  |
-| Selected | `form/outline-selected` border + blue dot    | `form/outline-selected` border + blue dot     |
+The inner radio indicator itself has only two visual states (default and
+selected) — the card's hover / pressed / focused states do not propagate to it.
 
 ## Structure
 
@@ -26,22 +29,21 @@ states are wired in both solutions:
 Radio cards/
 ├── tokens/                                ← shared CSS custom-property tokens
 │   ├── atlas-tokens.css
-│   ├── radio-card.css                     ← Card-based solution styles
-│   └── radio-button-tile.css              ← Button-Tile-based solution styles
-├── react/                                 ← Vite + React 18 + TypeScript app
+│   └── radio-card.css
+├── react/                                 ← Vite + React 18 + TypeScript
 │   └── src/
-│       ├── primitives/{Card,ButtonTile}.tsx
-│       └── components/{RadioCard,RadioButtonTile,*Group}.tsx
-├── angular/                               ← Angular 18 standalone-component app
+│       ├── primitives/Card.tsx
+│       └── components/{RadioCard,RadioCardGroup}.tsx
+├── angular/                               ← Angular 18 standalone components
 │   └── src/app/
-│       ├── primitives/{card,button-tile}.component.ts
-│       └── radio-card{,-group}.component.ts + radio-button-tile{,-group}.component.ts
+│       ├── primitives/card.component.ts
+│       └── radio-card{,-group}.component.ts
 └── preview/                               ← self-contained HTML previews
-    ├── radio-cards-preview.html           ← live vanilla-JS preview
+    ├── radio-cards-preview.html
     └── react-app.html                     ← inlined React build
 ```
 
-`atlas-reference/` is the reference codebase only — it is git-ignored.
+`atlas-reference/` is the reference codebase only — git-ignored.
 
 ## Run locally
 
@@ -63,5 +65,5 @@ npm start            # → http://127.0.0.1:4200
 
 ### No-install preview
 
-Just open `preview/react-app.html` in any browser — same React build, all JS / CSS
+Open `preview/react-app.html` in any browser — same React build with all JS / CSS
 inlined into one file.
