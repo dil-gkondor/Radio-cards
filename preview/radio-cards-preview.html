@@ -41,20 +41,17 @@
       --semantic-color-action-secondary-active: #dee0e9;
       --semantic-color-action-secondary-on-secondary: #232429;
 
-      /* Atlas Toggle Button tokens (Figma 73336:7906) */
-      --component-toggle-outline: #282e37;
-      --component-toggle-hover: #f3f3f3;
-      --component-toggle-active: #e6e6e6;
+      /* Atlas Theme toggle (segmented pill) — Lens defaults */
+      --component-toggle-track-background: #eeeff5;
+      --component-toggle-track-outline: #e2e2e5;
+      --component-toggle-hover: rgba(0, 0, 0, 0.04);
+      --component-toggle-active: rgba(0, 0, 0, 0.08);
       --component-toggle-selected: #282e37;
-      --component-toggle-outline-selected: #282e37;
       --component-toggle-selected-hover: #464e53;
       --component-toggle-selected-active: #282e37;
       --component-toggle-on-selected: #ffffff;
       --component-toggle-on: #282e37;
-      --component-toggle-disabled: #ffffff;
-      --component-toggle-disabled-selected: #e6e6e6;
       --component-toggle-on-disabled: #a0a2a5;
-      --component-toggle-outline-disabled: #e6e6e6;
 
       --component-button-small-font-size: 14px;
       --component-button-small-line-height: 20px;
@@ -97,7 +94,7 @@
       --page-background: #ffffff;
     }
 
-    /* ===== Atlas Light overrides — Atlas brand red accent ===== */
+    /* ===== Atlas Light overrides — blue indigo accent (no red) ===== */
     [data-theme="light"] {
       --semantic-color-surface-default: #ffffff;
       --semantic-color-surface-variant: #f0f0f3;
@@ -108,28 +105,25 @@
       --semantic-color-outline-static: #e2e2e5;
       --component-form-outline: #515255;
       --component-form-outline-disabled: #c6c6c9;
-      --component-form-indicator: #ee312e;
-      --component-form-outline-selected: #ee312e;
-      --component-form-default-selected: #ffefef;
+      --component-form-indicator: #0040d5;
+      --component-form-outline-selected: #0040d5;
+      --component-form-default-selected: #efefff;
       --semantic-color-action-secondary-hover: #f0f0f3;
       --semantic-color-action-secondary-active: #e2e2e5;
       --semantic-color-action-secondary-on-secondary: #1a1c1e;
-      --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #ee312e;
+      --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
       --page-background: #fcfcff;
 
-      --component-toggle-outline: #1a1c1e;
-      --component-toggle-hover: #f0f0f3;
-      --component-toggle-active: #e2e2e5;
-      --component-toggle-selected: #ee312e;
-      --component-toggle-outline-selected: #ee312e;
-      --component-toggle-selected-hover: #c51612;
-      --component-toggle-selected-active: #a50e0b;
-      --component-toggle-on-selected: #ffffff;
+      --component-toggle-track-background: #f0f0f3;
+      --component-toggle-track-outline: #e2e2e5;
+      --component-toggle-hover: rgba(0, 0, 0, 0.04);
+      --component-toggle-active: rgba(0, 0, 0, 0.08);
+      --component-toggle-selected: #efefff;
+      --component-toggle-selected-hover: #dde1ff;
+      --component-toggle-selected-active: #b8c4ff;
+      --component-toggle-on-selected: #0040d5;
       --component-toggle-on: #1a1c1e;
-      --component-toggle-disabled: #ffffff;
-      --component-toggle-disabled-selected: #ffefef;
       --component-toggle-on-disabled: #aaabae;
-      --component-toggle-outline-disabled: #e2e2e5;
     }
 
     /* ===== Atlas Dark overrides ===== */
@@ -150,19 +144,16 @@
       --semantic-color-action-secondary-active: #4c5265;
       --semantic-color-action-secondary-on-secondary: #ffffff;
 
-      --component-toggle-outline: #71768b;
-      --component-toggle-hover: #353b4d;
-      --component-toggle-active: #4c5265;
-      --component-toggle-selected: #ffffff;
-      --component-toggle-outline-selected: #ffffff;
-      --component-toggle-selected-hover: #dce2f9;
-      --component-toggle-selected-active: #ffffff;
-      --component-toggle-on-selected: #1f2536;
+      --component-toggle-track-background: #2a3041;
+      --component-toggle-track-outline: #4c5265;
+      --component-toggle-hover: rgba(255, 255, 255, 0.06);
+      --component-toggle-active: rgba(255, 255, 255, 0.10);
+      --component-toggle-selected: rgba(64, 105, 254, 0.20);
+      --component-toggle-selected-hover: rgba(64, 105, 254, 0.28);
+      --component-toggle-selected-active: rgba(64, 105, 254, 0.18);
+      --component-toggle-on-selected: #b8c4ff;
       --component-toggle-on: #ffffff;
-      --component-toggle-disabled: #1f2536;
-      --component-toggle-disabled-selected: #4c5265;
       --component-toggle-on-disabled: #71768b;
-      --component-toggle-outline-disabled: #4c5265;
       --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
       --semantic-color-elevation-low-2: rgba(0, 0, 0, 0.28);
       --semantic-color-elevation-low-3: rgba(0, 0, 0, 0.16);
@@ -208,18 +199,20 @@
       font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
     }
 
-    /* ===== Theme toggle — Atlas Tertiary Toggle Buttons (Figma 73336:7906) ===== */
+    /* ===== Theme toggle — segmented pill ===== */
     .theme-toggle {
       display: inline-flex; align-items: center;
-      gap: var(--component-button-small-gap-horizontal);
+      padding: 4px; gap: 2px;
+      background: var(--component-toggle-track-background);
+      border: 1px solid var(--component-toggle-track-outline);
+      border-radius: var(--semantic-radius-full);
       flex-shrink: 0;
     }
     .theme-toggle__option {
-      appearance: none; background: transparent;
-      border: 0;                                        /* tertiary: no border */
+      appearance: none; background: transparent; border: 0;
       border-radius: var(--semantic-radius-md);
-      padding: var(--spacing-0-5) var(--component-button-small-padding-horizontal); /* 4 / 12 */
-      min-height: 32px;
+      padding: var(--spacing-0-5) var(--component-button-small-padding-horizontal);
+      min-height: 28px;
       font-family: var(--semantic-typography-text-md-font);
       font-weight: var(--component-button-small-weight);
       font-size: var(--component-button-small-font-size);

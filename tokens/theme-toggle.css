@@ -1,50 +1,42 @@
 /**
- * Theme toggle — Atlas Tertiary Toggle Buttons.
- * Sourced from the Figma file "Components — Atlas Lens Light Dark"
- *   (node 73336:7906, tertiary toggle variant). Token map:
+ * Theme toggle — segmented control.
  *
- *   Default (unselected) →
- *     border  transparent (no outline — tertiary)
- *     bg      transparent
- *     text    Action/Secondary/On secondary
+ * Track:
+ *   bg     --component-toggle-track-background
+ *   border --component-toggle-track-outline
+ *   radius --semantic-radius-full   (pill)
  *
- *   Hover (unselected)   → bg  Component/Form/Hover
- *   Pressed (unselected) → bg  Component/Form/Active
+ * Each option is tertiary chrome inside the pill:
+ *   Default unselected → transparent, on-secondary text
+ *   Hover unselected   → toggle-hover fill
+ *   Pressed unselected → toggle-active fill
+ *   Selected           → toggle-selected fill, toggle-on-selected text
+ *   Focused            → focus-ring shadow
  *
- *   Focused → focus-ring shadow (Color/UI/Focus/Main)
- *
- *   Selected             →
- *     bg      Component/Form/Default selected
- *     border  transparent (tertiary has no visible border)
- *     text    Component/Form/Indicator
- *
- *   Selected hover       → bg Component/Form/Hover selected
- *   Selected pressed     → bg Component/Form/Active selected
- *   Disabled             → transparent, text on-disabled
- *
- * Sizing uses Atlas "Small" button metrics: 14 / 20 SemiBold, padding 12px,
- * radius Md (8 px), gap 8 px.
+ * Sizing follows Atlas "Small" button metrics: 14 / 20 SemiBold, padding
+ * vertical = spacing/0_5 (4 px), horizontal = button/small/padding-horizontal
+ * (12 px), radius/md (8 px) per option, gap = 2 px between options.
  */
 
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: var(--component-button-small-gap-horizontal);
+  padding: 4px;
+  gap: 2px;
+  background: var(--component-toggle-track-background);
+  border: 1px solid var(--component-toggle-track-outline);
+  border-radius: var(--semantic-radius-full);
 }
 
 .theme-toggle__option {
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
-  /* Tertiary: NO border. (No 1px transparent placeholder — the Figma spec
-     for node 73336:7897 has no border at all, so the dimensions sit on the
-     padding alone.) */
   border: 0;
   border-radius: var(--semantic-radius-md);
 
-  /* Atlas Small tertiary toggle: py 4 / px 12, with a 24px-tall label inside. */
   padding: var(--spacing-0-5) var(--component-button-small-padding-horizontal);
-  min-height: 32px;
+  min-height: 28px;
 
   font-family: var(--semantic-typography-text-md-font);
   font-weight: var(--component-button-small-weight);
@@ -59,18 +51,15 @@
   transition:
     background-color var(--motion-duration-fast) var(--motion-easing-standard),
     color var(--motion-duration-fast) var(--motion-easing-standard),
-    border-color var(--motion-duration-fast) var(--motion-easing-standard),
     box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
 }
 
 .theme-toggle__option:hover:not(.is-selected):not(:disabled) {
   background-color: var(--component-toggle-hover);
 }
-
 .theme-toggle__option:active:not(.is-selected):not(:disabled) {
   background-color: var(--component-toggle-active);
 }
-
 .theme-toggle__option:focus-visible {
   outline: none;
   box-shadow: var(--semantic-shadow-focus-default);
@@ -81,11 +70,9 @@
   background-color: var(--component-toggle-selected);
   color: var(--component-toggle-on-selected);
 }
-
 .theme-toggle__option.is-selected:hover:not(:disabled) {
   background-color: var(--component-toggle-selected-hover);
 }
-
 .theme-toggle__option.is-selected:active:not(:disabled) {
   background-color: var(--component-toggle-selected-active);
 }
@@ -94,11 +81,5 @@
 .theme-toggle__option[aria-disabled='true'] {
   cursor: not-allowed;
   background-color: transparent;
-  color: var(--component-toggle-on-disabled);
-}
-
-.theme-toggle__option:disabled.is-selected,
-.theme-toggle__option[aria-disabled='true'].is-selected {
-  background-color: var(--component-toggle-disabled-selected);
   color: var(--component-toggle-on-disabled);
 }

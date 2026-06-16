@@ -126,21 +126,24 @@
   /* Page-level background. Lens default; overridden by the theme blocks below. */
   --page-background: #ffffff;
 
-  /* ----- Atlas Toggle Button (Figma file: Components Atlas Lens Light Dark,
-   * node 73336:7906). Uses its own form/* token set distinct from radio. ----- */
-  --component-toggle-outline: #282e37;          /* Component/Form/Outline */
-  --component-toggle-hover: #f3f3f3;            /* Component/Form/Hover */
-  --component-toggle-active: #e6e6e6;           /* Component/Form/Active */
-  --component-toggle-selected: #282e37;         /* Component/Form/Default selected */
-  --component-toggle-outline-selected: #282e37; /* Component/Form/Outline selected */
-  --component-toggle-selected-hover: #464e53;   /* Component/Form/Hover selected */
-  --component-toggle-selected-active: #282e37;  /* Component/Form/Active selected */
-  --component-toggle-on-selected: #ffffff;      /* Component/Form/Indicator (label-when-selected) */
-  --component-toggle-on: #282e37;               /* Action/Secondary/On secondary (label-when-unselected) */
-  --component-toggle-disabled: #ffffff;         /* Component/Form/Disabled */
-  --component-toggle-disabled-selected: #e6e6e6;/* Component/Form/Disabled selected */
-  --component-toggle-on-disabled: #a0a2a5;      /* Action/Secondary/On secondary disabled */
-  --component-toggle-outline-disabled: #e6e6e6; /* Component/Form/Outline disabled */
+  /* ----- Atlas Toggle (segmented theme switcher, Lens default) -----
+   * Track is a pill with surface-variant fill + outline-static border.
+   * Selected option per screenshot: dark fill + white text. */
+  --component-toggle-track-background: #eeeff5;  /* surface-variant */
+  --component-toggle-track-outline: #e2e2e5;     /* outline-static */
+  --component-toggle-outline: transparent;
+  --component-toggle-hover: rgba(0, 0, 0, 0.04);
+  --component-toggle-active: rgba(0, 0, 0, 0.08);
+  --component-toggle-selected: #282e37;          /* Component/Form/Default selected */
+  --component-toggle-outline-selected: transparent;
+  --component-toggle-selected-hover: #464e53;
+  --component-toggle-selected-active: #282e37;
+  --component-toggle-on-selected: #ffffff;       /* white text on dark pill */
+  --component-toggle-on: #282e37;                /* dark text on transparent unselected */
+  --component-toggle-disabled: transparent;
+  --component-toggle-disabled-selected: #e6e6e6;
+  --component-toggle-on-disabled: #a0a2a5;
+  --component-toggle-outline-disabled: transparent;
 
   /* ----- Atlas Button typography (Small size — used by the toggle) ----- */
   --component-button-small-font-size: 14px;
@@ -164,11 +167,9 @@
  * ========================================================================= */
 
 /* ----- Atlas Light -----
- * Distinguished from Lens by:
- *   1) the brand accent flips from Indigo to Atlas Red (#ee312e),
- *   2) the page sits on the variant-subtle (#fcfcff) instead of pure white,
- *   3) the radio-card group container becomes the variant fill (#f0f0f3)
- *      so the cards visually pop off it.
+ * Blue indigo accent (same indicator family as Lens, slightly warmer surface
+ * tones and concrete-ramp neutrals). Differentiated from Lens by the lighter
+ * page background and the selected-pill blue tint on the theme toggle.
  */
 [data-theme="light"] {
   --semantic-color-surface-default: #ffffff;
@@ -182,36 +183,36 @@
   --semantic-color-outline-static: #e2e2e5;        /* concrete[80] */
   --component-form-outline: #515255;
   --component-form-outline-disabled: #c6c6c9;
-
-  /* Atlas brand red — visibly differentiates Light from Lens. */
-  --component-form-indicator: #ee312e;
-  --component-form-outline-selected: #ee312e;
-  --component-form-default-selected: #ffefef;
+  --component-form-indicator: #0040d5;             /* indigo[70] — back to blue */
+  --component-form-outline-selected: #0040d5;
+  --component-form-default-selected: #efefff;      /* indigo[95] */
 
   --semantic-color-action-secondary-hover: #f0f0f3;
   --semantic-color-action-secondary-active: #e2e2e5;
   --semantic-color-action-secondary-on-secondary: #1a1c1e;
   --semantic-color-action-secondary-on-secondary-disabled: #aaabae;
 
-  --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #ee312e;
+  --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
   --page-background: #fcfcff;
 
-  /* Toggle reflects the Atlas brand red so Light's selected pill is visibly
-   * different from Lens's dark-gray selected pill. */
-  --component-toggle-outline: #1a1c1e;
-  --component-toggle-hover: #f0f0f3;
-  --component-toggle-active: #e2e2e5;
-  --component-toggle-selected: #ee312e;          /* Atlas brand red */
-  --component-toggle-outline-selected: #ee312e;
-  --component-toggle-selected-hover: #c51612;
-  --component-toggle-selected-active: #a50e0b;
-  --component-toggle-on-selected: #ffffff;
+  /* Toggle: blue selection per screenshot — Form/Default-selected fill +
+   * Form/Indicator text. No border on the pill. */
+  --component-toggle-track-background: #f0f0f3;
+  --component-toggle-track-outline: #e2e2e5;
+  --component-toggle-outline: transparent;
+  --component-toggle-hover: rgba(0, 0, 0, 0.04);
+  --component-toggle-active: rgba(0, 0, 0, 0.08);
+  --component-toggle-selected: #efefff;
+  --component-toggle-outline-selected: transparent;
+  --component-toggle-selected-hover: #dde1ff;
+  --component-toggle-selected-active: #b8c4ff;
+  --component-toggle-on-selected: #0040d5;
   --component-toggle-on: #1a1c1e;
-  --component-toggle-disabled: #ffffff;
-  --component-toggle-disabled-selected: #ffefef;
+  --component-toggle-disabled: transparent;
+  --component-toggle-disabled-selected: #e2e2e5;
   --component-toggle-on-disabled: #aaabae;
-  --component-toggle-outline-disabled: #e2e2e5;
+  --component-toggle-outline-disabled: transparent;
 }
 
 /* ----- Atlas Dark ----- */
@@ -235,20 +236,22 @@
   --semantic-color-action-secondary-on-secondary: #ffffff;
   --semantic-color-action-secondary-on-secondary-disabled: #71768b;
 
-  /* Toggle button — inverted for dark: light fill = selected, dark text on it. */
-  --component-toggle-outline: #71768b;
-  --component-toggle-hover: #353b4d;
-  --component-toggle-active: #4c5265;
-  --component-toggle-selected: #ffffff;
-  --component-toggle-outline-selected: #ffffff;
-  --component-toggle-selected-hover: #dce2f9;
-  --component-toggle-selected-active: #ffffff;
-  --component-toggle-on-selected: #1f2536;     /* dark surface on white pill */
-  --component-toggle-on: #ffffff;              /* white text when unselected */
-  --component-toggle-disabled: #1f2536;
+  /* Toggle — dark theme: tinted indigo selection on dark track. */
+  --component-toggle-track-background: #2a3041;  /* storm[20] */
+  --component-toggle-track-outline: #4c5265;     /* storm[35] */
+  --component-toggle-outline: transparent;
+  --component-toggle-hover: rgba(255, 255, 255, 0.06);
+  --component-toggle-active: rgba(255, 255, 255, 0.10);
+  --component-toggle-selected: rgba(64, 105, 254, 0.20); /* tinted indigo[80] */
+  --component-toggle-outline-selected: transparent;
+  --component-toggle-selected-hover: rgba(64, 105, 254, 0.28);
+  --component-toggle-selected-active: rgba(64, 105, 254, 0.18);
+  --component-toggle-on-selected: #b8c4ff;       /* indigo[80]→[85] light text on dark */
+  --component-toggle-on: #ffffff;
+  --component-toggle-disabled: transparent;
   --component-toggle-disabled-selected: #4c5265;
   --component-toggle-on-disabled: #71768b;
-  --component-toggle-outline-disabled: #4c5265;
+  --component-toggle-outline-disabled: transparent;
 
   /* Dark surfaces need a softer / lower-contrast elevation shadow. */
   --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
