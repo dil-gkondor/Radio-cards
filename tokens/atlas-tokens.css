@@ -34,7 +34,10 @@
   --component-card-padding-vertical: 16px;
 
   /* ----- Radius ----- */
-  --semantic-radius-lg: 12px;
+  --semantic-radius-none: 0px;
+  --semantic-radius-sm: 4px;
+  --semantic-radius-md: 8px;   /* used by Atlas xs/sm buttons (e.g. tertiary) */
+  --semantic-radius-lg: 12px;  /* used by Atlas md/lg buttons */
   --semantic-radius-lg-16: 16px;
   --semantic-radius-full: 9999px;
 
@@ -54,9 +57,13 @@
   --semantic-color-outline-static-button-tile: #dee0e9;
   --semantic-color-action-secondary-outline-disabled: #dee0e9;
 
-  /* ----- Color: action (Button Tile hover/pressed) ----- */
-  --semantic-color-action-secondary-hover: #eeeff5;
-  --semantic-color-action-secondary-active: #dee0e9;
+  /* ----- Color: action — Secondary (also drives tertiary buttons) -----
+   * Tertiary uses these `hoverFill` / `activeFill` values for its hover and
+   * pressed states; default state is transparent with `onSecondary` text. */
+  --semantic-color-action-secondary-hover: #eeeff5;  /* hoverFill */
+  --semantic-color-action-secondary-active: #dee0e9; /* activeFill */
+  --semantic-color-action-secondary-on-secondary: #232429;          /* gray[900] */
+  --semantic-color-action-secondary-on-secondary-disabled: #a5a7b3; /* gray[400] */
 
   /* ----- Color: focus ----- */
   --semantic-color-ui-focus-main: #1c4ee4;
@@ -153,6 +160,11 @@
   --component-form-indicator: #0040d5;
   --component-form-outline-selected: #0040d5;
 
+  --semantic-color-action-secondary-hover: #f0f0f3;
+  --semantic-color-action-secondary-active: #e2e2e5;
+  --semantic-color-action-secondary-on-secondary: #1a1c1e;
+  --semantic-color-action-secondary-on-secondary-disabled: #aaabae;
+
   --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
   --page-background: #ffffff;
@@ -173,6 +185,11 @@
   --component-form-outline-disabled: #4c5265;
   --component-form-indicator: #4069fe;             /* indigo[80] — readable on dark */
   --component-form-outline-selected: #4069fe;
+
+  --semantic-color-action-secondary-hover: #353b4d; /* storm[25] */
+  --semantic-color-action-secondary-active: #4c5265;/* storm[35] */
+  --semantic-color-action-secondary-on-secondary: #ffffff;
+  --semantic-color-action-secondary-on-secondary-disabled: #71768b;
 
   /* Dark surfaces need a softer / lower-contrast elevation shadow. */
   --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);

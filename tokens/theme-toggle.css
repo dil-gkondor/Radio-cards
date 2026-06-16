@@ -1,31 +1,35 @@
 /**
- * Segmented theme toggle — Lens / Light / Dark.
- * Sits in the page header and writes data-theme on <html>.
+ * Theme toggle — row of Atlas tertiary buttons.
  *
- * All values come from Atlas / Lens Figma tokens. The "selected" pill picks up
- * the Form/Default-selected fill and Form/Outline-selected stroke, so the
- * toggle visually inherits the same selection language used by the radio cards.
+ * Per the Atlas button-token spec (lens/js/component/button.ts):
+ *   tertiary.default   → transparent background, onSecondary text
+ *   tertiary.hover     → action/secondary/hoverFill   background
+ *   tertiary.active    → action/secondary/activeFill  background
+ *   tertiary.disabled  → transparent, onSecondaryDisabled text
+ *
+ * Buttons use `radius/md` (8 px) — the small-button radius from the token
+ * stack. The selected option layers the same Form/Default-selected fill and
+ * Form/Outline-selected border used by the radio cards, so the selected
+ * language is consistent across the page.
  */
 
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  padding: 4px;
   gap: 2px;
-  background-color: var(--semantic-color-surface-variant);
-  border: 1px solid var(--semantic-color-outline-static);
-  border-radius: var(--semantic-radius-full);
-  box-sizing: border-box;
 }
 
+/* Tertiary button base — transparent default, soft fill on hover/active. */
 .theme-toggle__option {
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: var(--semantic-radius-full);
+  border-radius: var(--semantic-radius-md);
 
-  padding: 6px 14px;
+  /* Atlas "sm" button: 32 px tall, 12 px horizontal padding. */
+  height: 32px;
+  padding: 0 12px;
   min-width: 64px;
 
   font-family: var(--semantic-typography-text-md-font);
@@ -33,7 +37,7 @@
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.3px;
-  color: var(--semantic-color-type-muted);
+  color: var(--semantic-color-action-secondary-on-secondary);
 
   cursor: pointer;
   user-select: none;
@@ -46,7 +50,11 @@
 }
 
 .theme-toggle__option:hover:not(.is-selected) {
-  color: var(--semantic-color-type-default);
+  background-color: var(--semantic-color-action-secondary-hover);
+}
+
+.theme-toggle__option:active:not(.is-selected) {
+  background-color: var(--semantic-color-action-secondary-active);
 }
 
 .theme-toggle__option:focus-visible {
@@ -55,8 +63,17 @@
   z-index: 1;
 }
 
+/* Selected — reuse the radio-card selection language so the page reads as one
+ * design language: Form/Default-selected fill + Form/Outline-selected border. */
 .theme-toggle__option.is-selected {
   background-color: var(--component-form-default-selected);
   border-color: var(--component-form-outline-selected);
   color: var(--component-form-indicator);
+}
+
+.theme-toggle__option:disabled,
+.theme-toggle__option[aria-disabled='true'] {
+  cursor: not-allowed;
+  color: var(--semantic-color-action-secondary-on-secondary-disabled);
+  background-color: transparent;
 }

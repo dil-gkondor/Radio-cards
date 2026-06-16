@@ -32,9 +32,14 @@
 
       --component-card-padding-vertical: 16px;
 
+      --semantic-radius-md: 8px;
       --semantic-radius-lg: 12px;
       --semantic-radius-lg-16: 16px;
       --semantic-radius-full: 9999px;
+
+      --semantic-color-action-secondary-hover: #eeeff5;
+      --semantic-color-action-secondary-active: #dee0e9;
+      --semantic-color-action-secondary-on-secondary: #232429;
 
       --semantic-color-surface-default: #ffffff;
       --semantic-color-surface-variant: #eeeff5;
@@ -85,6 +90,9 @@
       --semantic-color-outline-static: #e2e2e5;
       --component-form-outline: #515255;
       --component-form-outline-disabled: #c6c6c9;
+      --semantic-color-action-secondary-hover: #f0f0f3;
+      --semantic-color-action-secondary-active: #e2e2e5;
+      --semantic-color-action-secondary-on-secondary: #1a1c1e;
       --page-background: #ffffff;
     }
 
@@ -102,6 +110,9 @@
       --component-form-indicator: #4069fe;
       --component-form-outline-selected: #4069fe;
       --component-form-default-selected: rgba(64, 105, 254, 0.16);
+      --semantic-color-action-secondary-hover: #353b4d;
+      --semantic-color-action-secondary-active: #4c5265;
+      --semantic-color-action-secondary-on-secondary: #ffffff;
       --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
       --semantic-color-elevation-low-2: rgba(0, 0, 0, 0.28);
       --semantic-color-elevation-low-3: rgba(0, 0, 0, 0.16);
@@ -147,23 +158,19 @@
       font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
     }
 
-    /* ===== Theme toggle ===== */
+    /* ===== Theme toggle — Atlas tertiary buttons ===== */
     .theme-toggle {
-      display: inline-flex; align-items: center;
-      padding: 4px; gap: 2px;
-      background: var(--semantic-color-surface-variant);
-      border: 1px solid var(--semantic-color-outline-static);
-      border-radius: var(--semantic-radius-full);
+      display: inline-flex; align-items: center; gap: 2px;
       flex-shrink: 0;
     }
     .theme-toggle__option {
       appearance: none; background: transparent;
       border: 1px solid transparent;
-      border-radius: var(--semantic-radius-full);
-      padding: 6px 14px; min-width: 64px;
+      border-radius: var(--semantic-radius-md); /* Atlas sm button radius */
+      height: 32px; padding: 0 12px; min-width: 64px;
       font-family: var(--semantic-typography-text-md-font);
       font-weight: 500; font-size: 12px; line-height: 16px; letter-spacing: 0.3px;
-      color: var(--semantic-color-type-muted);
+      color: var(--semantic-color-action-secondary-on-secondary);
       cursor: pointer; user-select: none; outline: none;
       transition:
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
@@ -171,7 +178,12 @@
         border-color var(--motion-duration-fast) var(--motion-easing-standard),
         box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    .theme-toggle__option:hover:not(.is-selected) { color: var(--semantic-color-type-default); }
+    .theme-toggle__option:hover:not(.is-selected) {
+      background: var(--semantic-color-action-secondary-hover);
+    }
+    .theme-toggle__option:active:not(.is-selected) {
+      background: var(--semantic-color-action-secondary-active);
+    }
     .theme-toggle__option:focus-visible {
       outline: none; box-shadow: var(--semantic-shadow-focus-default); z-index: 1;
     }
