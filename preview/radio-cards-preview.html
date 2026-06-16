@@ -135,6 +135,7 @@
       --semantic-color-type-muted: #a5abc0;
       --semantic-color-type-disabled: #71768b;
       --semantic-color-outline-static: #4c5265;
+      --semantic-color-action-secondary-outline-disabled: #4c5265;
       --component-form-outline: #71768b;
       --component-form-outline-disabled: #4c5265;
       --component-form-indicator: #4069fe;
@@ -143,6 +144,10 @@
       --semantic-color-action-secondary-hover: #353b4d;
       --semantic-color-action-secondary-active: #4c5265;
       --semantic-color-action-secondary-on-secondary: #ffffff;
+      --semantic-color-shadow-default: rgba(0, 0, 0, 0.50);
+      --semantic-shadow-elevation-low:
+        0 0 2px 0 rgba(0, 0, 0, 0.40),
+        0 8px 16px 0 rgba(0, 0, 0, 0.50);
 
       --component-toggle-track-background: #2a3041;
       --component-toggle-track-outline: #4c5265;
@@ -205,7 +210,8 @@
       padding: 4px; gap: 2px;
       background: var(--component-toggle-track-background);
       border: 1px solid var(--component-toggle-track-outline);
-      border-radius: var(--semantic-radius-full);
+      /* Same radius as the inner option for a cohesive single shape. */
+      border-radius: var(--semantic-radius-md);
       flex-shrink: 0;
     }
     .theme-toggle__option {

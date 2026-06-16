@@ -25,7 +25,9 @@
   gap: 2px;
   background: var(--component-toggle-track-background);
   border: 1px solid var(--component-toggle-track-outline);
-  border-radius: var(--semantic-radius-full);
+  /* Match the inner option radius so the track is a single
+   * cohesive shape — no concentric circles. */
+  border-radius: var(--semantic-radius-md);
 }
 
 .theme-toggle__option {
