@@ -2,7 +2,15 @@ import { useState } from 'react';
 import { RadioCardGroup, type RadioCardOption } from './components/RadioCardGroup';
 import { RadioButtonTileGroup } from './components/RadioButtonTileGroup';
 
-const options: RadioCardOption[] = [
+/** Disabled in the Card demo to match Figma node 95:969. */
+const cardOptions: RadioCardOption[] = [
+  { value: 'none', label: 'None', disabled: true },
+  { value: 'professional', label: 'Professional' },
+  { value: 'contributor', label: 'Contributor' },
+  { value: 'oversight', label: 'Oversight' },
+];
+
+const tileOptions: RadioCardOption[] = [
   { value: 'none', label: 'None' },
   { value: 'professional', label: 'Professional' },
   { value: 'contributor', label: 'Contributor' },
@@ -10,7 +18,7 @@ const options: RadioCardOption[] = [
 ];
 
 export default function App() {
-  const [cardValue, setCardValue] = useState<string | null>('none');
+  const [cardValue, setCardValue] = useState<string | null>('professional');
   const [tileValue, setTileValue] = useState<string | null>('none');
 
   return (
@@ -32,7 +40,7 @@ export default function App() {
         </p>
         <RadioCardGroup
           title="Subscription"
-          options={options}
+          options={cardOptions}
           value={cardValue}
           onChange={setCardValue}
         />
@@ -47,7 +55,7 @@ export default function App() {
         </p>
         <RadioButtonTileGroup
           title="Subscription"
-          options={options}
+          options={tileOptions}
           value={tileValue}
           onChange={setTileValue}
         />

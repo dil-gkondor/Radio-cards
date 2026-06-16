@@ -110,8 +110,19 @@
   background-color: var(--semantic-color-surface-default);
 }
 
-/* Disabled */
-.rc-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+/* Disabled — Figma node 95:969.
+ * Card chrome stays default; only the radio outline and label colour change. */
+.rc-card.is-disabled {
+  cursor: not-allowed;
+  background-color: var(--semantic-color-surface-default);
+  border-color: var(--semantic-color-outline-static);
+}
+.rc-card.is-disabled .rc-radio {
+  border-color: var(--component-form-outline-disabled);
+}
+.rc-card.is-disabled .rc-label {
+  color: var(--semantic-color-type-disabled);
+}
 
 /* =========================================================================
  * Inner content (radio + label)  — shared with Button Tile

@@ -71,11 +71,15 @@
 
   /* ----- Component: Form (radio button) ----- */
   --component-form-outline: #6e7182;
+  --component-form-outline-disabled: #c3c4cc;
   --component-form-hover: #dee0e9;
   --component-form-active: #c3c4cc;
   --component-form-indicator: #0040d5;
   --component-form-default-selected: #efefff;
   --component-form-outline-selected: #0040d5;
+
+  /* ----- Color: type/disabled (used by disabled card label) ----- */
+  --semantic-color-type-disabled: #a5a7b3;
 
   /* ----- Typography: H6 Xs (section title) ----- */
   --semantic-typography-title-h6-xs-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -98,12 +102,19 @@
   --semantic-typography-text-sm-line-height: 12px;
   --semantic-typography-text-sm-letter-spacing: 0.3px;
 
-  /* ----- Shadow: Elevation Low — Card hover (per updated Figma spec) -----
-   * Figma:  0 0 1px rgba(15,17,19,0.1) + 0 1px 1px rgba(15,17,19,0.1)
-   * Very soft: communicates lift without much depth. */
+  /* ----- Shadow: Elevation Low — Card hover (per Figma node 95:911) -----
+   * Four-stop asymmetric shadow that leans to the left and trails downward,
+   * so a hovered card lifts off the page with a directional cast.
+   * Tokens: Semantic/Color/Elevation group/Low/{1..4} */
+  --semantic-color-elevation-low-1: rgba(135, 135, 135, 0.08);
+  --semantic-color-elevation-low-2: rgba(135, 135, 135, 0.06);
+  --semantic-color-elevation-low-3: rgba(135, 135, 135, 0.02);
+  --semantic-color-elevation-low-4: rgba(135, 135, 135, 0.01);
   --semantic-shadow-elevation-low:
-    0 0 1px var(--semantic-color-shadow-default),
-    0 1px 1px var(--semantic-color-shadow-default);
+    -1px 4px 8px 0 var(--semantic-color-elevation-low-1),
+    -2px 9px 12px 0 var(--semantic-color-elevation-low-2),
+    -12px 38px 24px 0 var(--semantic-color-elevation-low-3),
+    -12px 40px 20px 0 var(--semantic-color-elevation-low-4);
 
   /* ----- Motion ----- */
   --motion-duration-fast: 150ms;

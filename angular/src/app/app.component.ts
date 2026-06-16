@@ -30,7 +30,7 @@ import { RadioButtonTileGroupComponent } from './radio-button-tile-group.compone
         </p>
         <app-radio-card-group
           title="Subscription"
-          [options]="options"
+          [options]="cardOptions"
           [value]="cardValue"
           (valueChange)="cardValue = $event"
         ></app-radio-card-group>
@@ -46,7 +46,7 @@ import { RadioButtonTileGroupComponent } from './radio-button-tile-group.compone
         </p>
         <app-radio-button-tile-group
           title="Subscription"
-          [options]="options"
+          [options]="tileOptions"
           [value]="tileValue"
           (valueChange)="tileValue = $event"
         ></app-radio-button-tile-group>
@@ -55,13 +55,21 @@ import { RadioButtonTileGroupComponent } from './radio-button-tile-group.compone
   `,
 })
 export class AppComponent {
-  readonly options: RadioCardOption[] = [
+  /** Disabled in the Card demo to match Figma node 95:969. */
+  readonly cardOptions: RadioCardOption[] = [
+    { value: 'none', label: 'None', disabled: true },
+    { value: 'professional', label: 'Professional' },
+    { value: 'contributor', label: 'Contributor' },
+    { value: 'oversight', label: 'Oversight' },
+  ];
+
+  readonly tileOptions: RadioCardOption[] = [
     { value: 'none', label: 'None' },
     { value: 'professional', label: 'Professional' },
     { value: 'contributor', label: 'Contributor' },
     { value: 'oversight', label: 'Oversight' },
   ];
 
-  cardValue: string | null = 'none';
+  cardValue: string | null = 'professional';
   tileValue: string | null = 'none';
 }

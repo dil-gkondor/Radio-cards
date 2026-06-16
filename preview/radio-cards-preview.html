@@ -59,15 +59,24 @@
       --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
       --semantic-color-shadow-default: rgba(15, 17, 19, 0.10);
+      --semantic-color-elevation-low-1: rgba(135, 135, 135, 0.08);
+      --semantic-color-elevation-low-2: rgba(135, 135, 135, 0.06);
+      --semantic-color-elevation-low-3: rgba(135, 135, 135, 0.02);
+      --semantic-color-elevation-low-4: rgba(135, 135, 135, 0.01);
       --semantic-shadow-elevation-low:
-        0 0 1px var(--semantic-color-shadow-default),
-        0 1px 1px var(--semantic-color-shadow-default);
+        -1px 4px 8px 0 var(--semantic-color-elevation-low-1),
+        -2px 9px 12px 0 var(--semantic-color-elevation-low-2),
+        -12px 38px 24px 0 var(--semantic-color-elevation-low-3),
+        -12px 40px 20px 0 var(--semantic-color-elevation-low-4);
 
       --component-form-outline: #6e7182;
+      --component-form-outline-disabled: #c3c4cc;
       --component-form-hover: #dee0e9;
       --component-form-active: #c3c4cc;
       --component-form-indicator: #0040d5;
       --component-form-outline-selected: #0040d5;
+
+      --semantic-color-type-disabled: #a5a7b3;
 
       --semantic-typography-title-h6-xs-font: 'Inter', system-ui, sans-serif;
       --semantic-typography-text-md-font: 'Inter', system-ui, sans-serif;
@@ -157,7 +166,13 @@
       border-color: var(--component-form-outline-selected);
       background: var(--semantic-color-surface-default);
     }
-    .rc-card.is-disabled { cursor: not-allowed; opacity: 0.55; }
+    .rc-card.is-disabled {
+      cursor: not-allowed;
+      background: var(--semantic-color-surface-default);
+      border-color: var(--semantic-color-outline-static);
+    }
+    .rc-card.is-disabled .rc-radio { border-color: var(--component-form-outline-disabled); }
+    .rc-card.is-disabled .rc-label { color: var(--semantic-color-type-disabled); }
 
     /* ===== Button-tile group ===== */
     .rbt-group {
@@ -319,7 +334,13 @@
   </main>
 
   <script>
-    const OPTIONS = [
+    const CARD_OPTIONS = [
+      { value: 'none', label: 'None', disabled: true }, // matches Figma 95:969
+      { value: 'professional', label: 'Professional' },
+      { value: 'contributor', label: 'Contributor' },
+      { value: 'oversight', label: 'Oversight' },
+    ];
+    const TILE_OPTIONS = [
       { value: 'none', label: 'None' },
       { value: 'professional', label: 'Professional' },
       { value: 'contributor', label: 'Contributor' },
@@ -329,6 +350,7 @@
     function renderGroup(opts) {
       const mount = document.getElementById(opts.mountId);
       let value = opts.initialValue;
+      const OPTIONS = opts.options;
 
       const group = document.createElement('div');
       group.className = opts.kind === 'card' ? 'rc-card-group' : 'rbt-group';
@@ -350,6 +372,11 @@
         if (tag === 'button') el.type = 'button';
         el.setAttribute('role', 'radio');
         el.dataset.value = o.value;
+        if (o.disabled) {
+          el.classList.add('is-disabled');
+          el.setAttribute('aria-disabled', 'true');
+          if (tag === 'button') el.disabled = true;
+        }
 
         const content = document.createElement('span');
         content.className = opts.kind === 'card' ? 'rc-content' : 'rbt-content';
@@ -366,7 +393,9 @@
         content.appendChild(label);
         el.appendChild(content);
 
-        el.addEventListener('click', () => select(o.value));
+        el.addEventListener('click', () => {
+          if (!o.disabled) select(o.value);
+        });
         return el;
       });
 
@@ -374,13 +403,17 @@
       group.appendChild(grid);
 
       function refresh() {
-        cards.forEach((card) => {
-          const isSel = card.dataset.value === value;
+        cards.forEach((card, idx) => {
+          const o = OPTIONS[idx];
+          const isSel = card.dataset.value === value && !o.disabled;
           card.classList.toggle('is-selected', isSel);
           card.setAttribute('aria-checked', String(isSel));
-          card.tabIndex = isSel ? 0 : -1;
+          card.tabIndex = o.disabled ? -1 : (isSel ? 0 : -1);
         });
-        if (!cards.some((c) => c.dataset.value === value)) cards[0].tabIndex = 0;
+        if (!cards.some((c, i) => c.dataset.value === value && !OPTIONS[i].disabled)) {
+          const firstEnabled = cards.find((_, i) => !OPTIONS[i].disabled);
+          if (firstEnabled) firstEnabled.tabIndex = 0;
+        }
       }
       function select(v) { value = v; refresh(); }
       refresh();
@@ -408,8 +441,8 @@
       mount.appendChild(group);
     }
 
-    renderGroup({ mountId: 'card-group', kind: 'card', title: 'Subscription', initialValue: 'none' });
-    renderGroup({ mountId: 'tile-group', kind: 'tile', title: 'Subscription', initialValue: 'none' });
+    renderGroup({ mountId: 'card-group', kind: 'card', title: 'Subscription', options: CARD_OPTIONS, initialValue: 'professional' });
+    renderGroup({ mountId: 'tile-group', kind: 'tile', title: 'Subscription', options: TILE_OPTIONS, initialValue: 'none' });
   </script>
 </body>
 </html>
