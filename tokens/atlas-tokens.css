@@ -130,6 +130,30 @@
 
   /* Page-level background. Lens default; overridden by the theme blocks below. */
   --page-background: #ffffff;
+
+  /* ----- Atlas Toggle Button (Figma file: Components Atlas Lens Light Dark,
+   * node 73336:7906). Uses its own form/* token set distinct from radio. ----- */
+  --component-toggle-outline: #282e37;          /* Component/Form/Outline */
+  --component-toggle-hover: #f3f3f3;            /* Component/Form/Hover */
+  --component-toggle-active: #e6e6e6;           /* Component/Form/Active */
+  --component-toggle-selected: #282e37;         /* Component/Form/Default selected */
+  --component-toggle-outline-selected: #282e37; /* Component/Form/Outline selected */
+  --component-toggle-selected-hover: #464e53;   /* Component/Form/Hover selected */
+  --component-toggle-selected-active: #282e37;  /* Component/Form/Active selected */
+  --component-toggle-on-selected: #ffffff;      /* Component/Form/Indicator (label-when-selected) */
+  --component-toggle-on: #282e37;               /* Action/Secondary/On secondary (label-when-unselected) */
+  --component-toggle-disabled: #ffffff;         /* Component/Form/Disabled */
+  --component-toggle-disabled-selected: #e6e6e6;/* Component/Form/Disabled selected */
+  --component-toggle-on-disabled: #a0a2a5;      /* Action/Secondary/On secondary disabled */
+  --component-toggle-outline-disabled: #e6e6e6; /* Component/Form/Outline disabled */
+
+  /* ----- Atlas Button typography (Small size — used by the toggle) ----- */
+  --component-button-small-font-size: 14px;
+  --component-button-small-line-height: 20px;
+  --component-button-small-letter-spacing: 0.2px;
+  --component-button-small-weight: 600;
+  --component-button-small-gap-horizontal: 8px;
+  --component-button-small-padding-horizontal: 12px;
 }
 
 /* =========================================================================
@@ -168,6 +192,20 @@
   --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
   --page-background: #ffffff;
+
+  --component-toggle-outline: #1a1c1e;
+  --component-toggle-hover: #f0f0f3;
+  --component-toggle-active: #e2e2e5;
+  --component-toggle-selected: #1a1c1e;
+  --component-toggle-outline-selected: #1a1c1e;
+  --component-toggle-selected-hover: #3a3c3e;
+  --component-toggle-selected-active: #1a1c1e;
+  --component-toggle-on-selected: #ffffff;
+  --component-toggle-on: #1a1c1e;
+  --component-toggle-disabled: #ffffff;
+  --component-toggle-disabled-selected: #e2e2e5;
+  --component-toggle-on-disabled: #aaabae;
+  --component-toggle-outline-disabled: #e2e2e5;
 }
 
 /* ----- Atlas Dark ----- */
@@ -190,6 +228,21 @@
   --semantic-color-action-secondary-active: #4c5265;/* storm[35] */
   --semantic-color-action-secondary-on-secondary: #ffffff;
   --semantic-color-action-secondary-on-secondary-disabled: #71768b;
+
+  /* Toggle button — inverted for dark: light fill = selected, dark text on it. */
+  --component-toggle-outline: #71768b;
+  --component-toggle-hover: #353b4d;
+  --component-toggle-active: #4c5265;
+  --component-toggle-selected: #ffffff;
+  --component-toggle-outline-selected: #ffffff;
+  --component-toggle-selected-hover: #dce2f9;
+  --component-toggle-selected-active: #ffffff;
+  --component-toggle-on-selected: #1f2536;     /* dark surface on white pill */
+  --component-toggle-on: #ffffff;              /* white text when unselected */
+  --component-toggle-disabled: #1f2536;
+  --component-toggle-disabled-selected: #4c5265;
+  --component-toggle-on-disabled: #71768b;
+  --component-toggle-outline-disabled: #4c5265;
 
   /* Dark surfaces need a softer / lower-contrast elevation shadow. */
   --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);

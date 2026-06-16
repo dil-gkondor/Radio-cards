@@ -1,43 +1,53 @@
 /**
- * Theme toggle — row of Atlas tertiary buttons.
+ * Theme toggle — Atlas Toggle Buttons.
+ * Sourced from the Figma file "Components — Atlas Lens Light Dark"
+ *   (node 73336:7906). Token map:
  *
- * Per the Atlas button-token spec (lens/js/component/button.ts):
- *   tertiary.default   → transparent background, onSecondary text
- *   tertiary.hover     → action/secondary/hoverFill   background
- *   tertiary.active    → action/secondary/activeFill  background
- *   tertiary.disabled  → transparent, onSecondaryDisabled text
+ *   Default (unselected) →
+ *     border  Component/Form/Outline
+ *     bg      transparent
+ *     text    Action/Secondary/On secondary
  *
- * Buttons use `radius/md` (8 px) — the small-button radius from the token
- * stack. The selected option layers the same Form/Default-selected fill and
- * Form/Outline-selected border used by the radio cards, so the selected
- * language is consistent across the page.
+ *   Hover (unselected)   → bg  Component/Form/Hover
+ *   Pressed (unselected) → bg  Component/Form/Active
+ *
+ *   Focused → focus-ring shadow (Color/UI/Focus/Main)
+ *
+ *   Selected             →
+ *     bg      Component/Form/Default selected
+ *     border  Component/Form/Outline selected
+ *     text    Component/Form/Indicator
+ *
+ *   Selected hover       → bg Component/Form/Hover selected
+ *   Selected pressed     → bg Component/Form/Active selected
+ *   Disabled             → bg Component/Form/Disabled, text on-disabled
+ *
+ * Sizing uses Atlas "Small" button metrics: 14 / 20 SemiBold, padding 12px,
+ * radius Md (8 px), gap 8 px.
  */
 
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: var(--component-button-small-gap-horizontal);
 }
 
-/* Tertiary button base — transparent default, soft fill on hover/active. */
 .theme-toggle__option {
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
-  border: 1px solid transparent;
+  border: 1px solid var(--component-toggle-outline);
   border-radius: var(--semantic-radius-md);
 
-  /* Atlas "sm" button: 32 px tall, 12 px horizontal padding. */
   height: 32px;
-  padding: 0 12px;
-  min-width: 64px;
+  padding: 0 var(--component-button-small-padding-horizontal);
 
   font-family: var(--semantic-typography-text-md-font);
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  letter-spacing: 0.3px;
-  color: var(--semantic-color-action-secondary-on-secondary);
+  font-weight: var(--component-button-small-weight);
+  font-size: var(--component-button-small-font-size);
+  line-height: var(--component-button-small-line-height);
+  letter-spacing: var(--component-button-small-letter-spacing);
+  color: var(--component-toggle-on);
 
   cursor: pointer;
   user-select: none;
@@ -49,12 +59,12 @@
     box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
 }
 
-.theme-toggle__option:hover:not(.is-selected) {
-  background-color: var(--semantic-color-action-secondary-hover);
+.theme-toggle__option:hover:not(.is-selected):not(:disabled) {
+  background-color: var(--component-toggle-hover);
 }
 
-.theme-toggle__option:active:not(.is-selected) {
-  background-color: var(--semantic-color-action-secondary-active);
+.theme-toggle__option:active:not(.is-selected):not(:disabled) {
+  background-color: var(--component-toggle-active);
 }
 
 .theme-toggle__option:focus-visible {
@@ -63,17 +73,32 @@
   z-index: 1;
 }
 
-/* Selected — reuse the radio-card selection language so the page reads as one
- * design language: Form/Default-selected fill + Form/Outline-selected border. */
 .theme-toggle__option.is-selected {
-  background-color: var(--component-form-default-selected);
-  border-color: var(--component-form-outline-selected);
-  color: var(--component-form-indicator);
+  background-color: var(--component-toggle-selected);
+  border-color: var(--component-toggle-outline-selected);
+  color: var(--component-toggle-on-selected);
+}
+
+.theme-toggle__option.is-selected:hover:not(:disabled) {
+  background-color: var(--component-toggle-selected-hover);
+  border-color: var(--component-toggle-outline-selected);
+}
+
+.theme-toggle__option.is-selected:active:not(:disabled) {
+  background-color: var(--component-toggle-selected-active);
+  border-color: var(--component-toggle-outline-selected);
 }
 
 .theme-toggle__option:disabled,
 .theme-toggle__option[aria-disabled='true'] {
   cursor: not-allowed;
-  color: var(--semantic-color-action-secondary-on-secondary-disabled);
-  background-color: transparent;
+  background-color: var(--component-toggle-disabled);
+  border-color: var(--component-toggle-outline-disabled);
+  color: var(--component-toggle-on-disabled);
+}
+
+.theme-toggle__option:disabled.is-selected,
+.theme-toggle__option[aria-disabled='true'].is-selected {
+  background-color: var(--component-toggle-disabled-selected);
+  color: var(--component-toggle-on-disabled);
 }

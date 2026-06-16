@@ -41,6 +41,28 @@
       --semantic-color-action-secondary-active: #dee0e9;
       --semantic-color-action-secondary-on-secondary: #232429;
 
+      /* Atlas Toggle Button tokens (Figma 73336:7906) */
+      --component-toggle-outline: #282e37;
+      --component-toggle-hover: #f3f3f3;
+      --component-toggle-active: #e6e6e6;
+      --component-toggle-selected: #282e37;
+      --component-toggle-outline-selected: #282e37;
+      --component-toggle-selected-hover: #464e53;
+      --component-toggle-selected-active: #282e37;
+      --component-toggle-on-selected: #ffffff;
+      --component-toggle-on: #282e37;
+      --component-toggle-disabled: #ffffff;
+      --component-toggle-disabled-selected: #e6e6e6;
+      --component-toggle-on-disabled: #a0a2a5;
+      --component-toggle-outline-disabled: #e6e6e6;
+
+      --component-button-small-font-size: 14px;
+      --component-button-small-line-height: 20px;
+      --component-button-small-letter-spacing: 0.2px;
+      --component-button-small-weight: 600;
+      --component-button-small-gap-horizontal: 8px;
+      --component-button-small-padding-horizontal: 12px;
+
       --semantic-color-surface-default: #ffffff;
       --semantic-color-surface-variant: #eeeff5;
       --semantic-color-surface-variant-subtle: #f9f9fc;
@@ -94,6 +116,20 @@
       --semantic-color-action-secondary-active: #e2e2e5;
       --semantic-color-action-secondary-on-secondary: #1a1c1e;
       --page-background: #ffffff;
+
+      --component-toggle-outline: #1a1c1e;
+      --component-toggle-hover: #f0f0f3;
+      --component-toggle-active: #e2e2e5;
+      --component-toggle-selected: #1a1c1e;
+      --component-toggle-outline-selected: #1a1c1e;
+      --component-toggle-selected-hover: #3a3c3e;
+      --component-toggle-selected-active: #1a1c1e;
+      --component-toggle-on-selected: #ffffff;
+      --component-toggle-on: #1a1c1e;
+      --component-toggle-disabled: #ffffff;
+      --component-toggle-disabled-selected: #e2e2e5;
+      --component-toggle-on-disabled: #aaabae;
+      --component-toggle-outline-disabled: #e2e2e5;
     }
 
     /* ===== Atlas Dark overrides ===== */
@@ -113,6 +149,20 @@
       --semantic-color-action-secondary-hover: #353b4d;
       --semantic-color-action-secondary-active: #4c5265;
       --semantic-color-action-secondary-on-secondary: #ffffff;
+
+      --component-toggle-outline: #71768b;
+      --component-toggle-hover: #353b4d;
+      --component-toggle-active: #4c5265;
+      --component-toggle-selected: #ffffff;
+      --component-toggle-outline-selected: #ffffff;
+      --component-toggle-selected-hover: #dce2f9;
+      --component-toggle-selected-active: #ffffff;
+      --component-toggle-on-selected: #1f2536;
+      --component-toggle-on: #ffffff;
+      --component-toggle-disabled: #1f2536;
+      --component-toggle-disabled-selected: #4c5265;
+      --component-toggle-on-disabled: #71768b;
+      --component-toggle-outline-disabled: #4c5265;
       --semantic-color-elevation-low-1: rgba(0, 0, 0, 0.40);
       --semantic-color-elevation-low-2: rgba(0, 0, 0, 0.28);
       --semantic-color-elevation-low-3: rgba(0, 0, 0, 0.16);
@@ -158,19 +208,23 @@
       font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
     }
 
-    /* ===== Theme toggle — Atlas tertiary buttons ===== */
+    /* ===== Theme toggle — Atlas Toggle Buttons (Figma 73336:7906) ===== */
     .theme-toggle {
-      display: inline-flex; align-items: center; gap: 2px;
+      display: inline-flex; align-items: center;
+      gap: var(--component-button-small-gap-horizontal);
       flex-shrink: 0;
     }
     .theme-toggle__option {
       appearance: none; background: transparent;
-      border: 1px solid transparent;
-      border-radius: var(--semantic-radius-md); /* Atlas sm button radius */
-      height: 32px; padding: 0 12px; min-width: 64px;
+      border: 1px solid var(--component-toggle-outline);
+      border-radius: var(--semantic-radius-md);
+      height: 32px; padding: 0 var(--component-button-small-padding-horizontal);
       font-family: var(--semantic-typography-text-md-font);
-      font-weight: 500; font-size: 12px; line-height: 16px; letter-spacing: 0.3px;
-      color: var(--semantic-color-action-secondary-on-secondary);
+      font-weight: var(--component-button-small-weight);
+      font-size: var(--component-button-small-font-size);
+      line-height: var(--component-button-small-line-height);
+      letter-spacing: var(--component-button-small-letter-spacing);
+      color: var(--component-toggle-on);
       cursor: pointer; user-select: none; outline: none;
       transition:
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
@@ -179,18 +233,24 @@
         box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
     }
     .theme-toggle__option:hover:not(.is-selected) {
-      background: var(--semantic-color-action-secondary-hover);
+      background: var(--component-toggle-hover);
     }
     .theme-toggle__option:active:not(.is-selected) {
-      background: var(--semantic-color-action-secondary-active);
+      background: var(--component-toggle-active);
     }
     .theme-toggle__option:focus-visible {
       outline: none; box-shadow: var(--semantic-shadow-focus-default); z-index: 1;
     }
     .theme-toggle__option.is-selected {
-      background: var(--component-form-default-selected);
-      border-color: var(--component-form-outline-selected);
-      color: var(--component-form-indicator);
+      background: var(--component-toggle-selected);
+      border-color: var(--component-toggle-outline-selected);
+      color: var(--component-toggle-on-selected);
+    }
+    .theme-toggle__option.is-selected:hover {
+      background: var(--component-toggle-selected-hover);
+    }
+    .theme-toggle__option.is-selected:active {
+      background: var(--component-toggle-selected-active);
     }
 
     /* ===== Card group ===== */
