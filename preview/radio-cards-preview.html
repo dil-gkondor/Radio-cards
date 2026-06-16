@@ -208,7 +208,7 @@
       font-size: 12.5px; line-height: 17px; margin: 0 0 14px; max-width: 640px;
     }
 
-    /* ===== Theme toggle — Atlas Toggle Buttons (Figma 73336:7906) ===== */
+    /* ===== Theme toggle — Atlas Tertiary Toggle Buttons (Figma 73336:7906) ===== */
     .theme-toggle {
       display: inline-flex; align-items: center;
       gap: var(--component-button-small-gap-horizontal);
@@ -216,7 +216,7 @@
     }
     .theme-toggle__option {
       appearance: none; background: transparent;
-      border: 1px solid var(--component-toggle-outline);
+      border: 1px solid transparent; /* tertiary: no visible border */
       border-radius: var(--semantic-radius-md);
       height: 32px; padding: 0 var(--component-button-small-padding-horizontal);
       font-family: var(--semantic-typography-text-md-font);
@@ -243,7 +243,7 @@
     }
     .theme-toggle__option.is-selected {
       background: var(--component-toggle-selected);
-      border-color: var(--component-toggle-outline-selected);
+      border-color: transparent;
       color: var(--component-toggle-on-selected);
     }
     .theme-toggle__option.is-selected:hover {

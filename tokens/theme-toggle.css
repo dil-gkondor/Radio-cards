@@ -1,10 +1,10 @@
 /**
- * Theme toggle — Atlas Toggle Buttons.
+ * Theme toggle — Atlas Tertiary Toggle Buttons.
  * Sourced from the Figma file "Components — Atlas Lens Light Dark"
- *   (node 73336:7906). Token map:
+ *   (node 73336:7906, tertiary toggle variant). Token map:
  *
  *   Default (unselected) →
- *     border  Component/Form/Outline
+ *     border  transparent (no outline — tertiary)
  *     bg      transparent
  *     text    Action/Secondary/On secondary
  *
@@ -15,12 +15,12 @@
  *
  *   Selected             →
  *     bg      Component/Form/Default selected
- *     border  Component/Form/Outline selected
+ *     border  transparent (tertiary has no visible border)
  *     text    Component/Form/Indicator
  *
  *   Selected hover       → bg Component/Form/Hover selected
  *   Selected pressed     → bg Component/Form/Active selected
- *   Disabled             → bg Component/Form/Disabled, text on-disabled
+ *   Disabled             → transparent, text on-disabled
  *
  * Sizing uses Atlas "Small" button metrics: 14 / 20 SemiBold, padding 12px,
  * radius Md (8 px), gap 8 px.
@@ -36,7 +36,9 @@
   appearance: none;
   -webkit-appearance: none;
   background: transparent;
-  border: 1px solid var(--component-toggle-outline);
+  /* Tertiary: no visible border. Border kept transparent only to preserve
+     dimensions parity with a secondary toggle button. */
+  border: 1px solid transparent;
   border-radius: var(--semantic-radius-md);
 
   height: 32px;
@@ -75,25 +77,23 @@
 
 .theme-toggle__option.is-selected {
   background-color: var(--component-toggle-selected);
-  border-color: var(--component-toggle-outline-selected);
+  border-color: transparent; /* tertiary — no border, even when selected */
   color: var(--component-toggle-on-selected);
 }
 
 .theme-toggle__option.is-selected:hover:not(:disabled) {
   background-color: var(--component-toggle-selected-hover);
-  border-color: var(--component-toggle-outline-selected);
 }
 
 .theme-toggle__option.is-selected:active:not(:disabled) {
   background-color: var(--component-toggle-selected-active);
-  border-color: var(--component-toggle-outline-selected);
 }
 
 .theme-toggle__option:disabled,
 .theme-toggle__option[aria-disabled='true'] {
   cursor: not-allowed;
-  background-color: var(--component-toggle-disabled);
-  border-color: var(--component-toggle-outline-disabled);
+  background-color: transparent;
+  border-color: transparent;
   color: var(--component-toggle-on-disabled);
 }
 
