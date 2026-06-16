@@ -168,11 +168,17 @@
  * agnostic.
  * ========================================================================= */
 
-/* ----- Atlas Light ----- */
+/* ----- Atlas Light -----
+ * Distinguished from Lens by:
+ *   1) the brand accent flips from Indigo to Atlas Red (#ee312e),
+ *   2) the page sits on the variant-subtle (#fcfcff) instead of pure white,
+ *   3) the radio-card group container becomes the variant fill (#f0f0f3)
+ *      so the cards visually pop off it.
+ */
 [data-theme="light"] {
   --semantic-color-surface-default: #ffffff;
   --semantic-color-surface-variant: #f0f0f3;      /* concrete[90] */
-  --semantic-color-surface-variant-subtle: #f9f9fc; /* concrete[95] */
+  --semantic-color-surface-variant-subtle: #fcfcff; /* concrete[98] */
 
   --semantic-color-type-default: #1a1c1e;          /* concrete[10] */
   --semantic-color-type-muted: #515255;            /* concrete[35] */
@@ -181,17 +187,20 @@
   --semantic-color-outline-static: #e2e2e5;        /* concrete[80] */
   --component-form-outline: #515255;
   --component-form-outline-disabled: #c6c6c9;
-  --component-form-indicator: #0040d5;
-  --component-form-outline-selected: #0040d5;
+
+  /* Atlas brand red — visibly differentiates Light from Lens. */
+  --component-form-indicator: #ee312e;
+  --component-form-outline-selected: #ee312e;
+  --component-form-default-selected: #ffefef;
 
   --semantic-color-action-secondary-hover: #f0f0f3;
   --semantic-color-action-secondary-active: #e2e2e5;
   --semantic-color-action-secondary-on-secondary: #1a1c1e;
   --semantic-color-action-secondary-on-secondary-disabled: #aaabae;
 
-  --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
+  --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #ee312e;
 
-  --page-background: #ffffff;
+  --page-background: #fcfcff;
 
   --component-toggle-outline: #1a1c1e;
   --component-toggle-hover: #f0f0f3;

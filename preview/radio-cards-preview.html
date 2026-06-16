@@ -101,21 +101,25 @@
       --page-background: #ffffff;
     }
 
-    /* ===== Atlas Light overrides ===== */
+    /* ===== Atlas Light overrides — Atlas brand red accent ===== */
     [data-theme="light"] {
       --semantic-color-surface-default: #ffffff;
       --semantic-color-surface-variant: #f0f0f3;
-      --semantic-color-surface-variant-subtle: #f9f9fc;
+      --semantic-color-surface-variant-subtle: #fcfcff;
       --semantic-color-type-default: #1a1c1e;
       --semantic-color-type-muted: #515255;
       --semantic-color-type-disabled: #aaabae;
       --semantic-color-outline-static: #e2e2e5;
       --component-form-outline: #515255;
       --component-form-outline-disabled: #c6c6c9;
+      --component-form-indicator: #ee312e;
+      --component-form-outline-selected: #ee312e;
+      --component-form-default-selected: #ffefef;
       --semantic-color-action-secondary-hover: #f0f0f3;
       --semantic-color-action-secondary-active: #e2e2e5;
       --semantic-color-action-secondary-on-secondary: #1a1c1e;
-      --page-background: #ffffff;
+      --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #ee312e;
+      --page-background: #fcfcff;
 
       --component-toggle-outline: #1a1c1e;
       --component-toggle-hover: #f0f0f3;
@@ -216,9 +220,10 @@
     }
     .theme-toggle__option {
       appearance: none; background: transparent;
-      border: 1px solid transparent; /* tertiary: no visible border */
+      border: 0;                                        /* tertiary: no border */
       border-radius: var(--semantic-radius-md);
-      height: 32px; padding: 0 var(--component-button-small-padding-horizontal);
+      padding: var(--spacing-0-5) var(--component-button-small-padding-horizontal); /* 4 / 12 */
+      min-height: 32px;
       font-family: var(--semantic-typography-text-md-font);
       font-weight: var(--component-button-small-weight);
       font-size: var(--component-button-small-font-size);
@@ -229,29 +234,19 @@
       transition:
         background-color var(--motion-duration-fast) var(--motion-easing-standard),
         color var(--motion-duration-fast) var(--motion-easing-standard),
-        border-color var(--motion-duration-fast) var(--motion-easing-standard),
         box-shadow var(--motion-duration-fast) var(--motion-easing-standard);
     }
-    .theme-toggle__option:hover:not(.is-selected) {
-      background: var(--component-toggle-hover);
-    }
-    .theme-toggle__option:active:not(.is-selected) {
-      background: var(--component-toggle-active);
-    }
+    .theme-toggle__option:hover:not(.is-selected) { background: var(--component-toggle-hover); }
+    .theme-toggle__option:active:not(.is-selected) { background: var(--component-toggle-active); }
     .theme-toggle__option:focus-visible {
       outline: none; box-shadow: var(--semantic-shadow-focus-default); z-index: 1;
     }
     .theme-toggle__option.is-selected {
       background: var(--component-toggle-selected);
-      border-color: transparent;
       color: var(--component-toggle-on-selected);
     }
-    .theme-toggle__option.is-selected:hover {
-      background: var(--component-toggle-selected-hover);
-    }
-    .theme-toggle__option.is-selected:active {
-      background: var(--component-toggle-selected-active);
-    }
+    .theme-toggle__option.is-selected:hover { background: var(--component-toggle-selected-hover); }
+    .theme-toggle__option.is-selected:active { background: var(--component-toggle-selected-active); }
 
     /* ===== Card group ===== */
     .rc-card-group {
