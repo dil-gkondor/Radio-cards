@@ -75,15 +75,11 @@
       --semantic-color-ui-focus-main: #1c4ee4;
       --semantic-shadow-focus-default: 0 0 0 1px #ffffff, 0 0 0 4px #0b4cce;
 
-      --semantic-color-elevation-low-1: rgba(135, 135, 135, 0.08);
-      --semantic-color-elevation-low-2: rgba(135, 135, 135, 0.06);
-      --semantic-color-elevation-low-3: rgba(135, 135, 135, 0.02);
-      --semantic-color-elevation-low-4: rgba(135, 135, 135, 0.01);
       --semantic-shadow-elevation-low:
-        -1px 4px 8px 0 var(--semantic-color-elevation-low-1),
-        -2px 9px 12px 0 var(--semantic-color-elevation-low-2),
-        -12px 38px 24px 0 var(--semantic-color-elevation-low-3),
-        -12px 40px 20px 0 var(--semantic-color-elevation-low-4);
+        0 0 2px 0 var(--semantic-color-shadow-default),
+        0 8px 16px 0 var(--semantic-color-shadow-default);
+
+      --semantic-color-action-secondary-outline-disabled: #dee0e9;
 
       --component-form-outline: #6e7182;
       --component-form-outline-disabled: #c3c4cc;
@@ -248,13 +244,13 @@
     .theme-toggle__option.is-selected:hover { background: var(--component-toggle-selected-hover); }
     .theme-toggle__option.is-selected:active { background: var(--component-toggle-selected-active); }
 
-    /* ===== Card group ===== */
+    /* ===== Card group — top-row spec (transparent fill, just a border) ===== */
     .rc-card-group {
       display: flex; flex-direction: column; gap: var(--spacing-0-5);
       padding: var(--semantic-spacing-desktop-padding-2);
       border: 1px solid var(--semantic-color-outline-static);
       border-radius: var(--semantic-radius-lg-16);
-      background: var(--semantic-color-surface-default);
+      background: transparent;
       width: 642px; max-width: 100%;
     }
     .rc-card-group__title {
@@ -268,12 +264,13 @@
       gap: var(--semantic-spacing-desktop-gap-3);
     }
 
-    /* ===== Atlas Card primitive ===== */
+    /* ===== Atlas Card primitive — top-row spec ===== */
     .atlas-card {
       background: var(--semantic-color-surface-default);
-      border: 1px solid var(--semantic-color-outline-static);
+      border: 1px solid var(--semantic-color-action-secondary-outline-disabled);
       border-radius: var(--semantic-radius-lg);
-      padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
+      /* py 20 / px 16 per Figma 1:694 padding values */
+      padding: var(--semantic-spacing-desktop-padding-3) var(--component-card-padding-vertical);
       transition:
         box-shadow var(--motion-duration-base) var(--motion-easing-standard),
         border-color var(--motion-duration-fast) var(--motion-easing-standard),
@@ -301,7 +298,7 @@
     .rc-card.is-disabled {
       cursor: not-allowed;
       background: var(--semantic-color-surface-default);
-      border-color: var(--semantic-color-outline-static);
+      border-color: var(--semantic-color-action-secondary-outline-disabled);
     }
     .rc-card.is-disabled .rc-radio { border-color: var(--component-form-outline-disabled); }
     .rc-card.is-disabled .rc-label { color: var(--semantic-color-type-disabled); }

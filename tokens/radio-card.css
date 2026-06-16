@@ -15,7 +15,7 @@
  */
 
 /* =========================================================================
- * Card-based group container
+ * Card-based group container — top-row spec (transparent fill, just a border)
  * ========================================================================= */
 .rc-card-group {
   display: inline-flex;
@@ -25,7 +25,7 @@
   padding: var(--semantic-spacing-desktop-padding-2);
   border: 1px solid var(--semantic-color-outline-static);
   border-radius: var(--semantic-radius-lg-16);
-  background-color: var(--semantic-color-surface-default);
+  background-color: transparent; /* Figma top-row container has no fill */
   width: 642px;
   max-width: 100%;
   box-sizing: border-box;
@@ -58,9 +58,13 @@
  * ========================================================================= */
 .atlas-card {
   background-color: var(--semantic-color-surface-default);
-  border: 1px solid var(--semantic-color-outline-static);
+  /* Top-row spec uses Action/Secondary/Outline-disabled (#dee0e9), not the
+   * lighter outline-static (#e2e2e5). */
+  border: 1px solid var(--semantic-color-action-secondary-outline-disabled);
   border-radius: var(--semantic-radius-lg);
-  padding: var(--component-card-padding-vertical) var(--semantic-spacing-desktop-padding-3);
+  /* Figma: px = component/card/padding-vertical (16) horizontal,
+   *        py = spacing/desktop/padding/3      (20) vertical. */
+  padding: var(--semantic-spacing-desktop-padding-3) var(--component-card-padding-vertical);
   box-sizing: border-box;
   position: relative;
   transition:
@@ -115,7 +119,7 @@
 .rc-card.is-disabled {
   cursor: not-allowed;
   background-color: var(--semantic-color-surface-default);
-  border-color: var(--semantic-color-outline-static);
+  border-color: var(--semantic-color-action-secondary-outline-disabled);
 }
 .rc-card.is-disabled .rc-radio {
   border-color: var(--component-form-outline-disabled);

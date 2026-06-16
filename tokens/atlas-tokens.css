@@ -109,19 +109,14 @@
   --semantic-typography-text-sm-line-height: 12px;
   --semantic-typography-text-sm-letter-spacing: 0.3px;
 
-  /* ----- Shadow: Elevation Low — Card hover (per Figma node 95:911) -----
-   * Four-stop asymmetric shadow that leans to the left and trails downward,
-   * so a hovered card lifts off the page with a directional cast.
-   * Tokens: Semantic/Color/Elevation group/Low/{1..4} */
-  --semantic-color-elevation-low-1: rgba(135, 135, 135, 0.08);
-  --semantic-color-elevation-low-2: rgba(135, 135, 135, 0.06);
-  --semantic-color-elevation-low-3: rgba(135, 135, 135, 0.02);
-  --semantic-color-elevation-low-4: rgba(135, 135, 135, 0.01);
+  /* ----- Shadow: Elevation Low — Card hover (top-row spec, Radio card states).
+   * Two-stop centered shadow per Semantic/Shadow/Elevation/Low:
+   *   Effect 1: offset (0, 0)   radius spacing/0_25 (2px)
+   *   Effect 2: offset (0, 8)   radius spacing/2   (16px)
+   * Both use Semantic/Color/Shadow/Default (rgba(15,17,19,0.1)). */
   --semantic-shadow-elevation-low:
-    -1px 4px 8px 0 var(--semantic-color-elevation-low-1),
-    -2px 9px 12px 0 var(--semantic-color-elevation-low-2),
-    -12px 38px 24px 0 var(--semantic-color-elevation-low-3),
-    -12px 40px 20px 0 var(--semantic-color-elevation-low-4);
+    0 0 2px 0 var(--semantic-color-shadow-default),
+    0 8px 16px 0 var(--semantic-color-shadow-default);
 
   /* ----- Motion ----- */
   --motion-duration-fast: 150ms;
